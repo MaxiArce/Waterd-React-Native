@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
     headerTitle: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'roboto-bold',
         color: '#fff'
     }
 
