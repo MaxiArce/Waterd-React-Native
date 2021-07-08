@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -8,39 +8,40 @@ import {
   Modal,
   Text,
   TouchableWithoutFeedback,
-  Alert,
 } from "react-native";
 import Colors from "../constants/colors";
-import Header from "../components/Headers";
 import Card from "../components/Card";
-import Input from "../components/Input";
 
-const ListScreen = ({ showItemSelected }) => {
-  //Guarda el texto del input
-  const [inputText, setInputText] = useState("");
+const ListScreen = ( {route, navigation} ) => {
+
+
+
   //Guarda la lista de items
   const [itemList, setItemList] = useState([]);
   //Guarda el item seleccionado
   const [itemSelected, setItemSelected] = useState({});
   //Guarda la variable que muestra u oculta el modal
   const [modalVisibility, setmodalVisibility] = useState(false);
+  
+  
 
   const handleModal = (id) => {
     setItemSelected(itemList.find((item) => item.id === id));
     setmodalVisibility(true);
   };
 
-  const handleAddItem = () => {
-    if (inputText) {
+
+  useEffect(() => {
+    if (route.params) {
+      const  {itemName}  = route.params;
+      console.log(itemName)
       setItemList([
-        { id: Math.random().toString(), value: inputText },
+        { id: Math.random().toString(), value: itemName },
         ...itemList,
-      ]);
-      setInputText("");
-    } else {
-      Alert.alert("Ingresa un valor!");
+      ])
     }
-  };
+  }, [route.params])
+
 
   const handleDeleteItem = () => {
     const id = itemSelected.id;
@@ -51,22 +52,6 @@ const ListScreen = ({ showItemSelected }) => {
 
   return (
     <View style={styles.screen}>
-      <Header title="Titulo"></Header>
-      <View style={styles.textInputContainer}>
-        <Input
-          style={styles.textInput}
-          placeholder="Ingrese algun dato"
-          onChangeText={(text) => setInputText(text)}
-          value={inputText}
-        />
-        <View style={styles.buttonAdd}>
-          <Button
-            style={styles.buttonAdd}
-            title={"+"}
-            onPress={handleAddItem}
-          ></Button>
-        </View>
-      </View>
       <FlatList
         style={styles.listContainer}
         data={itemList}
@@ -74,7 +59,9 @@ const ListScreen = ({ showItemSelected }) => {
           return (
             <TouchableWithoutFeedback
               onPress={() => {
-                showItemSelected(data.item.value);
+                navigation.navigate("ItemDetailsScreen", {
+                  name: data.item.value
+                })
               }}
             >
               <View>
@@ -108,7 +95,7 @@ const ListScreen = ({ showItemSelected }) => {
       >
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>
-            Estas seguro que quieres borrar ${itemSelected.value}
+            Estas seguro que quieres borrar {itemSelected.value}
           </Text>
           <Button
             onPress={() => {
@@ -134,38 +121,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: Colors.accent,
   },
-  textInputContainer: {
-    flexDirection: "row",
-    backgroundColor: Colors.primary,
-    padding: 5,
-    width: "100%",
-    height: 60,
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  textInput: {
-    flexGrow: 1,
-    maxWidth: "90%",
-    paddingHorizontal: 10,
-    fontSize: 20,
-    maxHeight: 36,
-    borderRadius: 10,
-  },
-  buttonAdd: {
-    marginLeft: 10,
-  },
   cardContent: {
     width: "90%",
   },
   cartText: {
     fontSize: 24,
-    fontFamily: 'roboto',
+    fontFamily: 'montserrat',
     paddingLeft: 10,
     color: "white",
   },
   cartDescription: {
     fontSize: 18,
-    fontFamily: 'roboto',
+    fontFamily: 'montserrat',
     paddingLeft: 10,
     color: Colors.secondary,
   },

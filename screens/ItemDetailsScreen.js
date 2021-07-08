@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Image, Text, Button } from "react-native";
 import Colors from "../constants/colors";
-import Header from "../components/Headers";
 import Card from "../components/Card";
 
-const ItemDetailsScreen = ({ itemTitle, showItemSelected }) => {
+const ItemDetailsScreen = ({navigation}) => {
   return (
     <View style={styles.screen}>
-      <Header title={itemTitle}></Header>
       <Card style={styles.cardContainer}>
         <Image
           style={styles.image}
@@ -15,7 +13,12 @@ const ItemDetailsScreen = ({ itemTitle, showItemSelected }) => {
         />
         <Text style={styles.descriptionText}>Description Test</Text>
         <View style={styles.backButtton}>
-          <Button title={"Volver"} onPress={() => {showItemSelected('')}}></Button>
+          <Button
+            title={"Volver"}
+            onPress={() => {
+              navigation.navigate("Home");
+            }}
+          ></Button>
         </View>
       </Card>
     </View>
@@ -39,14 +42,14 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 24,
-    fontFamily: 'roboto',
+    fontFamily: "montserrat",
     color: "white",
   },
   backButtton: {
     flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 20
-}
+    justifyContent: "flex-end",
+    marginBottom: 20,
+  },
 });
 
 export default ItemDetailsScreen;
