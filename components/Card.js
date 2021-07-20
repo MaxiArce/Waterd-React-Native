@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     flexDirection: "row",
     maxWidth: "96%",
+    minHeight: 120,
     marginTop: 20,
     marginHorizontal: "2%",
     padding: 20,

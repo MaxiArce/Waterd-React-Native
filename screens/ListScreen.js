@@ -1,93 +1,49 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   View,
   StyleSheet,
-  Image,
-  Button,
   FlatList,
-  Modal,
-  Text,
-  TouchableWithoutFeedback,
 } from "react-native";
+import { deletePlant, selectPlant } from '../store/actions/plants.action'
 import Colors from "../constants/colors";
-import Card from "../components/Card";
+import PlantItem from "../components/PlantItem";
 
-const ListScreen = ( {route, navigation} ) => {
+const ListScreen = ( {navigation} ) => {
 
-
-
-  //Guarda la lista de items
-  const [itemList, setItemList] = useState([]);
-  //Guarda el item seleccionado
-  const [itemSelected, setItemSelected] = useState({});
   //Guarda la variable que muestra u oculta el modal
-  const [modalVisibility, setmodalVisibility] = useState(false);
+  // const [modalVisibility, setmodalVisibility] = useState(false);
+
+  //store
+  const dispatch = useDispatch()
+  const plants = useSelector(state => state.plants.list)
+  const selectedPlant = useSelector(state => state.plants.selected)
   
-  
 
-  const handleModal = (id) => {
-    setItemSelected(itemList.find((item) => item.id === id));
-    setmodalVisibility(true);
-  };
-
-
-  useEffect(() => {
-    if (route.params) {
-      const  {itemName}  = route.params;
-      console.log(itemName)
-      setItemList([
-        { id: Math.random().toString(), value: itemName },
-        ...itemList,
-      ])
-    }
-  }, [route.params])
+  // const handleModal = (id) => {
+  //   setItemSelected(itemList.find((item) => item.id === id));
+  //   setmodalVisibility(true);
+  // };
 
 
-  const handleDeleteItem = () => {
-    const id = itemSelected.id;
-    setItemList(itemList.filter((item) => item.id !== id));
-    setmodalVisibility(false);
-    setItemSelected({});
-  };
+  const handleSelected = (selectedPlant) => {
+    dispatch(selectPlant(selectedPlant.id))
+    navigation.navigate('ItemDetailsScreen', { name: selectedPlant.name });
+  }
+
+  const handleDeleteItem = (id) =>{ dispatch(deletePlant(id))}
+
+
+  const renderItem = ({ item }) => <PlantItem item={item} onSelected={handleSelected} onDelete={handleDeleteItem}/>
 
   return (
     <View style={styles.screen}>
       <FlatList
         style={styles.listContainer}
-        data={itemList}
-        renderItem={(data) => {
-          return (
-            <TouchableWithoutFeedback
-              onPress={() => {
-                navigation.navigate("ItemDetailsScreen", {
-                  name: data.item.value
-                })
-              }}
-            >
-              <View>
-                <Card
-
-                >
-                  <Image source={require("../assets/images/plant.png")} />
-                  <View style={styles.cardContent}>
-                    <Text style={styles.cartText}>{data.item.value}</Text>
-                    <Text style={styles.cartDescription}>Test</Text>
-                  </View>
-                  <View>
-                    <Button
-                      title="X"
-                      onPress={() => {
-                        handleModal(data.item.id);
-                      }}
-                    ></Button>
-                  </View>
-                </Card>
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        }}
+        data={plants}
+        renderItem={renderItem}
       />
-      <Modal
+      {/* <Modal
         style={styles.modal}
         animationType="none"
         transparent={true}
@@ -110,7 +66,7 @@ const ListScreen = ( {route, navigation} ) => {
             }}
           />
         </View>
-      </Modal>
+      </Modal> */}
     </View>
   );
 };
@@ -120,21 +76,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     backgroundColor: Colors.accent,
-  },
-  cardContent: {
-    width: "90%",
-  },
-  cartText: {
-    fontSize: 24,
-    fontFamily: 'montserrat',
-    paddingLeft: 10,
-    color: "white",
-  },
-  cartDescription: {
-    fontSize: 18,
-    fontFamily: 'montserrat',
-    paddingLeft: 10,
-    color: Colors.secondary,
   },
   modalContainer: {
     width: "80%",

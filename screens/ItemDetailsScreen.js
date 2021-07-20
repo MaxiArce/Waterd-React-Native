@@ -1,17 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { useSelector,useDispatch } from "react-redux";
 import { View, StyleSheet, Image, Text, Button } from "react-native";
 import Colors from "../constants/colors";
 import Card from "../components/Card";
 
 const ItemDetailsScreen = ({navigation}) => {
+
+  const plant = useSelector(state => state.plants.selected)
+
   return (
     <View style={styles.screen}>
       <Card style={styles.cardContainer}>
         <Image
           style={styles.image}
-          source={require("../assets/images/bigleaf.png")}
+          source={plant.image}
         />
-        <Text style={styles.descriptionText}>Description Test</Text>
+        <Text style={styles.descriptionText}>{plant.description}</Text>
         <View style={styles.backButtton}>
           <Button
             title={"Volver"}
