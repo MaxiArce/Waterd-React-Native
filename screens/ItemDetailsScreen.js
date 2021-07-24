@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   descriptionText: {
     fontSize: 24,
-    fontFamily: "montserrat",
+    fontFamily: "jakarta",
     color: "white",
   },
   backButtton: {

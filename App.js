@@ -9,8 +9,8 @@ import store from "./store";
 export default function App() {
   const [showItem, setShowItem] = useState("");
   const [dataLoaded] = useFonts({
-    montserrat: require("./assets/fonts/Montserrat-Regular.ttf"),
-    "montserrat-semibold": require("./assets/fonts/Montserrat-SemiBold.ttf"),
+    jakarta: require("./assets/fonts/PlusJakartaSans-Regular.ttf"),
+    "jakarta-bold": require("./assets/fonts/PlusJakartaSans-Bold.ttf"),
   });
 
   if (!dataLoaded) {

@@ -16,11 +16,17 @@ const AppNavigator = () => (
       screenOptions={{
         headerStyle: {
           backgroundColor: Colors.primary,
+          height: 100
         },
         headerTitleStyle: {
-          fontWeight: "bold",
+          fontSize: 24
+          // fontFamily: "jakarta-bold"
         },
         headerTintColor: "white",
+        headerBackTitleVisible: false,
+        headerLeftContainerStyle: {
+          paddingStart: 15,
+        }
       }}
     >
       <Stack.Screen

@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
       cartText: {
         fontSize: 24,
         width: '100%',
-        fontFamily: 'montserrat',
+        fontFamily: 'jakarta',
         paddingLeft: 10,
         color: "white",
       },
       cartDescription: {
         fontSize: 18,
-        fontFamily: 'montserrat',
+        fontFamily: 'jakarta',
         paddingLeft: 10,
         color: Colors.secondary,
       },
