@@ -11,6 +11,7 @@ export default function App() {
   const [dataLoaded] = useFonts({
     jakarta: require("./assets/fonts/PlusJakartaSans-Regular.ttf"),
     "jakarta-bold": require("./assets/fonts/PlusJakartaSans-Bold.ttf"),
+    "canela-bold": require("./assets/fonts/Canela-Bold.ttf")
   });
 
   if (!dataLoaded) {

@@ -19,8 +19,8 @@ const AppNavigator = () => (
           height: 100
         },
         headerTitleStyle: {
-          fontSize: 24
-          // fontFamily: "jakarta-bold"
+          fontSize: 24,
+          fontFamily: "canela-bold"
         },
         headerTintColor: "white",
         headerBackTitleVisible: false,
