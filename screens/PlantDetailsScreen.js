@@ -5,7 +5,7 @@ import PlantDetailsCard from '../components/PlantDetailsCard'
 
 const ItemDetailsScreen = ({navigation}) => {
 
-  const plant = useSelector(state => state.plants.selected)
+const plant = useSelector(state => state.plants.selected)
 
   return (
     

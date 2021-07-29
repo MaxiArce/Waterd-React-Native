@@ -2,8 +2,11 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
+import HomeScreen from "../home"
 import MyPlantsScreen from "../myplants";
 import AddPlantScreen from "../addplant";
+import WateringScreen from "../watering"
+import ProfileScreen from "../profile"
 
 import MyPlantsIcon from "../../assets/icons/myplantsicon";
 import WateringIcon from "../../assets/icons/wateringicon";
@@ -28,7 +31,7 @@ const TabNavigator = () => {
     >
       <TabStack.Screen
         name="Home"
-        component={MyPlantsScreen}
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
@@ -62,7 +65,7 @@ const TabNavigator = () => {
       />
       <TabStack.Screen
         name="Watering"
-        component={MyPlantsScreen}
+        component={WateringScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
@@ -73,7 +76,7 @@ const TabNavigator = () => {
       />
       <TabStack.Screen
         name="Profile"
-        component={MyPlantsScreen}
+        component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
