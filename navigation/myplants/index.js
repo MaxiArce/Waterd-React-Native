@@ -10,7 +10,6 @@ const MyPlantsNavigator = () => (
   <MyPlantsStack.Navigator
     initialRouteName="MyPlantsList"
     screenOptions={{
-      
       headerStyle: {
         elevation: 0, // remove shadow on Android
         shadowOpacity: 0, // remove shadow on iOS
@@ -31,8 +30,7 @@ const MyPlantsNavigator = () => (
       component={MyPlantsListScreen}
       options={({ navigation }) => ({
         title: "Mis Plantas",
-        headerTitleAlign: 'left',
-        headerTitleContainerStyle: { padding:0, margin:0 } 
+        headerTitleAlign: "left",
       })}
     />
     <MyPlantsStack.Screen
@@ -41,8 +39,14 @@ const MyPlantsNavigator = () => (
       options={({ route }) => ({
         title: "",
         headerStyle: {
-          backgroundColor: "transparent",
+          backgroundColor: Colors.SECONDARY_LIGHT,
+          elevation: 0, // remove shadow on Android
+          shadowOpacity: 0, // remove shadow on iOS
         },
+        headerLeftContainerStyle: {
+          paddingStart: 10,
+        },
+        headerTintColor: Colors.PRIMARY_DARK,
       })}
     />
   </MyPlantsStack.Navigator>

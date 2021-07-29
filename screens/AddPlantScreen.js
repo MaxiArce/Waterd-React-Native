@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Alert, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Alert,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useDispatch } from "react-redux";
 import { addPlant } from "../store/actions/plants.action";
 import Colors from "../constants/colors";
@@ -33,10 +40,16 @@ const AddPlantScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.screen}>
-      <TouchableOpacity style={styles.imgContainer} onPress={() => { Alert.alert("No implementado")}}>
+    <ScrollView contentContainerStyle={styles.screen}>
+      <TouchableOpacity
+        style={styles.imgContainer}
+        onPress={() => {
+          Alert.alert("No implementado");
+        }}
+      >
         <Image
           source={require("../assets/images/Plant3.png")}
+          resizeMode="contain"
           style={styles.image}
         />
         <View style={styles.addImgContainer}>
@@ -65,7 +78,7 @@ const AddPlantScreen = ({ navigation }) => {
         value="Guardar"
         onPress={handleAddItem}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -102,8 +115,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   customButton: {
-    position: "absolute",
-    bottom: 32,
+    marginTop: 16
+    // position: "absolute",
+    // bottom: 32,
   },
   image: {
     height: 100,
