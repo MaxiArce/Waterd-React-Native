@@ -1,35 +1,28 @@
-import React from "react";
-import { View, StyleSheet, TouchableWithoutFeedback, Alert } from "react-native";
+import React, { Children } from "react";
+import { Text,View, StyleSheet, } from "react-native";
 import Colors from "../constants/colors";
 
 const Card = ({ children, style  }) => {
   return (
     <View style={{ ...styles.cardContainer, ...style }}>
       {children}
+      <View style={styles.divider}/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   cardContainer: {
-    flexDirection: "row",
-    maxWidth: "96%",
-    minHeight: 120,
-    marginTop: 20,
-    marginHorizontal: "2%",
-    padding: 20,
-    backgroundColor: Colors.primary,
-    borderRadius: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-
-    elevation: 4,
+    flexDirection: "column",
+    maxWidth: "100%",
+    height: 73 ,
+    marginBottom:16
   },
+  divider: {
+    borderBottomWidth: 0.5,
+    marginLeft: 16,
+    borderBottomColor: "#00000033"
+  }
 });
 
 export default Card;

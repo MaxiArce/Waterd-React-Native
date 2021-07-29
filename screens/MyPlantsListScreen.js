@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { deletePlant, selectPlant } from '../store/actions/plants.action'
 import Colors from "../constants/colors";
-import PlantItem from "../components/PlantItem";
+import PlantItemRow from "../components/PlantItemRow";
 
 const ListScreen = ( {navigation} ) => {
 
@@ -24,7 +24,7 @@ const ListScreen = ( {navigation} ) => {
   const handleDeleteItem = (id) =>{ dispatch(deletePlant(id))}
 
 
-  const renderItem = ({ item }) => <PlantItem item={item} onSelected={handleSelected} onDelete={handleDeleteItem}/>
+  const renderItem = ({ item }) => <PlantItemRow item={item} onSelected={handleSelected} onDelete={handleDeleteItem}/>
 
   return (
     <View style={styles.screen}>
@@ -41,22 +41,9 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: Colors.accent,
-  },
-  modalContainer: {
-    width: "80%",
-    height: "20%",
-    marginHorizontal: "10%",
-    marginVertical: "70%",
-    borderRadius: 15,
-    backgroundColor: Colors.primary,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  modalText: {
-    fontSize: 20,
-    color: "white",
-    padding: 10,
+    backgroundColor: "white",
+    paddingVertical: 16,
+    marginBottom: 49,
   },
 });
 
