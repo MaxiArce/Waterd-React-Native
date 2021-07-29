@@ -20,7 +20,7 @@ const ItemDetailsScreen = ({navigation}) => {
           <Button
             title={"Volver"}
             onPress={() => {
-              navigation.navigate("Home");
+              navigation.navigate("MyPlantsList");
             }}
           ></Button>
         </View>

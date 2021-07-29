@@ -1,5 +1,8 @@
 export default {
-    primary: '#1D1D1D',
-    secondary: '#76768060',
-    accent: '#000000'
-}
+    PRIMARY_DARK: '#314A36',
+    PRIMARY_LIGHT: '#A2A46D',
+    SECONDARY_DARK: '#F0B69A',
+    SECONDARY_LIGHT: '#F8E6D3',
+    TEXT_DARK: '#000000',
+    TEXT_LIGHT: "#3C3C4399"
+} 

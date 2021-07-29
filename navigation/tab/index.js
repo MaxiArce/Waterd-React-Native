@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Colors from "../../constants/colors";
 
 import MyPlantsScreen from "../myplants";
+import AddPlantScreen from "../addplant";
 
 import MyPlantsIcon from "../../assets/icons/myplantsicon";
 import WateringIcon from "../../assets/icons/wateringicon";
@@ -19,7 +19,7 @@ const TabNavigator = () => {
       initialRouteName="Home"
       tabBarOptions={{
         showLabel: false,
-        activeTintColor: '#e91e63',
+        activeTintColor: "#e91e63",
         style: {
           ...styles.tabBar,
           ...styles.shadow,
@@ -32,40 +32,41 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
-              <HomeIcon/>
+              <HomeIcon />
             </View>
           ),
         }}
       />
-            <TabStack.Screen
+      <TabStack.Screen
         name="MyPlants"
         component={MyPlantsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
-                <MyPlantsIcon/>
+              <MyPlantsIcon />
             </View>
           ),
         }}
       />
       <TabStack.Screen
         name="AddPlant"
-        component={MyPlantsScreen}
+        component={AddPlantScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
-              <AddPlantIcon/>
+              <AddPlantIcon />
             </View>
           ),
+          tabBarVisible: false
         }}
       />
-            <TabStack.Screen
+      <TabStack.Screen
         name="Watering"
         component={MyPlantsScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
-                <WateringIcon/>
+              <WateringIcon />
             </View>
           ),
         }}
@@ -76,7 +77,7 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View style={styles.item}>
-              <ProfileIcon/>
+              <ProfileIcon />
             </View>
           ),
         }}
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     left: 0,
-    right: 0 ,
+    right: 0,
     height: 60,
   },
   item: {

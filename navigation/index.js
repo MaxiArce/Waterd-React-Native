@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import TabNavigator from './tab/index'
+import React, { useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import TabNavigator from "./tab/index";
 
 export default () => {
-
   return (
     <NavigationContainer>
-   <TabNavigator/>
-
+      <TabNavigator />
     </NavigationContainer>
-  )
-}
+  );
+};
