@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
-import AppNavigator from "./navigation/AppNavigator";
+import MainNavigator from './navigation';
 import { Provider } from "react-redux";
 import store from "./store";
 
 export default function App() {
-  const [showItem, setShowItem] = useState("");
+
   const [dataLoaded] = useFonts({
     jakarta: require("./assets/fonts/PlusJakartaSans-Regular.ttf"),
     "jakarta-bold": require("./assets/fonts/PlusJakartaSans-Bold.ttf"),
@@ -20,7 +20,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <AppNavigator></AppNavigator>
+      <MainNavigator></MainNavigator>
     </Provider>
   );
 }

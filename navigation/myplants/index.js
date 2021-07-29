@@ -1,17 +1,16 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Button } from "react-native";
-import Colors from  "../constants/colors"
-import ItemDetailsScreen from "../screens/ItemDetailsScreen";
-import ListScreen from "../screens/ListScreen";
-import AddItemScreen from "../screens/AddItemScreen";
+import { Button, Text } from "react-native";
+import Colors from  "../../constants/colors"
+import ItemDetailsScreen from "../../screens/ItemDetailsScreen";
+import ListScreen from "../../screens/ListScreen";
+import AddItemScreen from "../../screens/AddItemScreen";
 
-const Stack = createStackNavigator();
+const MyPlantsStack = createStackNavigator();
 
-const AppNavigator = () => (
-  <NavigationContainer>
-    <Stack.Navigator
+const MyPlantsNavigator = () => (
+  
+    <MyPlantsStack.Navigator
       initialRouteName="Home"
       screenOptions={{
         headerStyle: {
@@ -29,7 +28,7 @@ const AppNavigator = () => (
         }
       }}
     >
-      <Stack.Screen
+      <MyPlantsStack.Screen
         name="Home"
         component={ListScreen}
         options={({navigation}) => ({
@@ -43,18 +42,17 @@ const AppNavigator = () => (
           title : "Mis Plantas"
         })}
       />
-      <Stack.Screen
+      <MyPlantsStack.Screen
         name="ItemDetailsScreen"
         component={ItemDetailsScreen}
         options={({ route }) => ({ title: route.params.name })}
       />
-      <Stack.Screen
+      <MyPlantsStack.Screen
         name="AddItemScreen"
         component={AddItemScreen}
         options={{ title: "Agregar planta" }}
       />
-    </Stack.Navigator>
-  </NavigationContainer>
+    </MyPlantsStack.Navigator>
 );
 
-export default AppNavigator;
+export default MyPlantsNavigator;
