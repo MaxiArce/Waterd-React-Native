@@ -5,8 +5,18 @@ import AppLoading from "expo-app-loading";
 import MainNavigator from './navigation';
 import { Provider } from "react-redux";
 import store from "./store";
+import { init } from './db';
+
 
 export default function App() {
+
+  init()
+  .then(() => console.log('Database initialized'))
+  .catch((err) => {
+    console.log('Database failed to connect');
+    console.log(err.message)
+  });
+
 
   const [dataLoaded] = useFonts({
     jakarta: require("./assets/fonts/PlusJakartaSans-Regular.ttf"),

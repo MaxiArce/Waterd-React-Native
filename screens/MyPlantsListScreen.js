@@ -1,36 +1,39 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, {useEffect, componentDidMount} from "react";
+import {  useSelector, useDispatch } from "react-redux";
 import {
   View,
   StyleSheet,
   FlatList,
 } from "react-native";
-import { deletePlant, selectPlant } from '../store/actions/plants.action'
+import { loadPlants, selectPlant } from '../store/actions/plants.action'
 import Colors from "../constants/colors";
 import PlantItemRow from "../components/PlantItemRow";
 
 const ListScreen = ( {navigation} ) => {
 
+
   //store
-  const dispatch = useDispatch()
-  const plants = useSelector(state => state.plants.list)
-  const selectedPlant = useSelector(state => state.plants.selected)
+  const dispatch = useDispatch();
+  const plants = useSelector(state => state.plants.list);
+  const selectedPlant = useSelector(state => state.plants.selected);
+
+  useEffect(() => {
+    dispatch(loadPlants());
+  },[]);
   
   const handleSelected = (selectedPlant) => {
-    dispatch(selectPlant(selectedPlant.id))
+    dispatch(selectPlant(selectedPlant.refId))
     navigation.navigate('PlantDetailsScreen', { name: selectedPlant.name });
   }
 
-  const handleDeleteItem = (id) =>{ dispatch(deletePlant(id))}
-
-
-  const renderItem = ({ item }) => <PlantItemRow item={item} onSelected={handleSelected} onDelete={handleDeleteItem}/>
+  const renderItem = ({ item }) => <PlantItemRow item={item} onSelected={handleSelected} />
 
   return (
     <View style={styles.screen}>
       <FlatList
         style={styles.listContainer}
         data={plants}
+        keyExtractor={item => item.refId}
         renderItem={renderItem}
       />
     </View>

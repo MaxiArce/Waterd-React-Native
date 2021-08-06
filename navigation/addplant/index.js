@@ -3,8 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { TouchableOpacity } from "react-native";
 import Colors from "../../constants/colors";
 import AddPlantScreen from "../../screens/AddPlantScreen";
-import { AntDesign } from '@expo/vector-icons'; 
-
+import { AntDesign } from "@expo/vector-icons";
 
 const AddPlantStack = createStackNavigator();
 
@@ -33,7 +32,11 @@ const AddPlantNavigator = () => (
       options={({ navigation }) => ({
         title: "Agregar planta",
         headerRight: () => (
-          <TouchableOpacity onPress={() => {navigation.navigate("MyPlants")}}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
             <AntDesign name="close" size={24} color={Colors.PRIMARY_DARK} />
           </TouchableOpacity>
         ),

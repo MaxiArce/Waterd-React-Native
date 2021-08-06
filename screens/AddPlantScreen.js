@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 import { addPlant } from "../store/actions/plants.action";
 import Colors from "../constants/colors";
 import Input from "../components/Input";
@@ -17,23 +18,32 @@ import { Ionicons } from "@expo/vector-icons";
 const AddPlantScreen = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  //Guarda el texto de los inputs
+  //InputText states
   const [inputNameText, setInputNameText] = useState("");
   const [inputDescriptionText, setInputDescriptionText] = useState("");
 
+  //gets user from store
+  const user = useSelector((state) => state.auth.user);
+
+  //Triggers when the view is not focused
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    setInputNameText("");
+    setInputDescriptionText("");
+  }, [isFocused]);
+
   const handleAddItem = () => {
     if (inputNameText && inputDescriptionText) {
-      dispatch(
-        addPlant({
-          id: Math.random().toString(),
-          name: inputNameText,
-          description: inputDescriptionText,
-          image: require("../assets/images/Plant1.png"),
-        })
-      );
-      setInputNameText("");
-      setInputDescriptionText("");
-      navigation.navigate("MyPlantsList");
+      const payload = {
+        name: inputNameText,
+        description: inputDescriptionText,
+        image:
+          "https://firebasestorage.googleapis.com/v0/b/react-native-test-4cb23.appspot.com/o/Plant1.png?alt=media&token=cefc36a6-08bc-4840-9f16-ac096e0d11b0",
+      };
+
+      dispatch(addPlant(payload, user));
+      navigation.goBack();
     } else {
       Alert.alert("Ingresa un valor!");
     }
@@ -115,7 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   customButton: {
-    marginTop: 16
+    marginTop: 16,
     // position: "absolute",
     // bottom: 32,
   },

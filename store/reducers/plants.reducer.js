@@ -1,9 +1,13 @@
-import { PLANTS } from "../../data/plants";
-import { ADD_PLANT, SELECT_PLANT } from "../actions/plants.action";
-import { DELETE_PLANT } from "../actions/plants.action";
+import {
+  ADD_PLANT,
+  SELECT_PLANT,
+  LOAD_PLANTS,
+  DELETE_PLANT,
+} from "../actions/plants.action";
+import Plant from "../../models/Plant";
 
 const initialState = {
-  list: PLANTS,
+  list: [],
   selected: null,
 };
 
@@ -12,23 +16,43 @@ const PlantsReducer = (state = initialState, action) => {
     case SELECT_PLANT:
       return {
         ...state,
-        selected: state.list.find((plants) => plants.id === action.plantID),
+        selected: state.list.find((plants) => plants.refId === action.plantID),
       };
-    case ADD_PLANT:
-      const newList = state.list.concat(action.item)
+
+
+    case LOAD_PLANTS:
       return {
         ...state,
-        list: newList
+        list : action.list.map(
+          (item) =>
+            new Plant(
+              item.refId.toString(),
+              item.name,
+              item.description,
+              item.image
+            )
+        ),
+      };
+
+    case ADD_PLANT:
+      const newPlant = new Plant(
+        action.payload.refId.toString(),
+        action.payload.name,
+        action.payload.description,
+        action.payload.image
+      );
+      return {
+        ...state,
+        list: state.list.concat(newPlant),
       };
     case DELETE_PLANT:
       return {
         ...state,
-        list: state.list.filter((plants) => plants.id !== action.plantID),
+        list: state.list.filter((plants) => plants.refId !== action.plantID),
       };
     default:
       return state;
   }
-
 };
 
 export default PlantsReducer;

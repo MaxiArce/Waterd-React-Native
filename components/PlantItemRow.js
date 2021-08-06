@@ -7,14 +7,14 @@ import {
   Platform,
   StyleSheet,
   Image,
-  Button,
 } from "react-native";
 import Colors from "../constants/colors";
 import Card from "./Card";
-import { AntDesign } from '@expo/vector-icons'; 
 
 
-const PlantItemRow = ({ item, onSelected, onDelete }) => {
+const PlantItemRow = ({ item, onSelected }) => {
+
+  
   const TouchableComponent =
     Platform.OS === "android" && Platform.version >= 21
       ? TouchableNativeFeedback
@@ -31,15 +31,12 @@ const PlantItemRow = ({ item, onSelected, onDelete }) => {
           <Image
             style={styles.image}
             resizeMode="contain"
-            source={item.image}
+            source={{uri: item.image}}
           />
           <View style={styles.cardDetails}>
             <Text style={styles.cartText}>{item.name}</Text>
             <Text style={styles.cartDescription}>{item.description}</Text>
           </View>
-          <TouchableOpacity style={styles.deleteButton} onPress={() => {onDelete(item.id)}}>
-            <AntDesign name="close" size={24} color={Colors.PRIMARY_DARK} />
-          </TouchableOpacity>
         </View>
       </Card>
     </TouchableComponent>
