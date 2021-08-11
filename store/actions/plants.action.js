@@ -7,11 +7,13 @@ export const LOAD_PLANTS = "LOAD_PLANTS";
 export const UPDATE_PLANTS = "UPDATE_PLANTS";
 import { insertNewPlant, fetchPlants, deleteRowPlant } from "../../db";
 
+//allows to set selected plant
 export const selectPlant = (refId) => ({
   type: SELECT_PLANT,
   plantID: refId,
 });
 
+//allows to delete a selected plant using the id 
 export const deletePlant = (refId, user) => {
   return async (dispatch) => {
     try {
@@ -24,7 +26,7 @@ export const deletePlant = (refId, user) => {
       if (response.ok) {
         //delete from sqlite db
         deleteRowPlant(refId)
-        //delete fro store
+        //delete from store
         dispatch({ type: DELETE_PLANT, plantID: refId });
       } else {
         Alert.alert("Ha ocurrido un error", ""[{ text: "OK" }]);
@@ -35,6 +37,7 @@ export const deletePlant = (refId, user) => {
   };
 };
 
+//load plants from sql and set them to the store 
 export const loadPlants = () => {
   return async (dispatch) => {
     try {
@@ -46,6 +49,7 @@ export const loadPlants = () => {
   };
 };
 
+//add new plant to firebase and then updates sql and store
 export const addPlant = (payload, user) => {
   return async (dispatch) => {
     //try to update plant to firebase

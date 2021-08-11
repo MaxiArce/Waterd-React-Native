@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { StyleSheet, View, Text } from "react-native";
-import CustomButton from "../components/CustomButton";
-import { logOut } from "../store/actions/auth.actions";
+import CustomButton from "../../components/CustomButton";
+import { logOut } from "../../store/actions/auth.actions";
 
 const ProfileScreen = ({navigation}) => {
 

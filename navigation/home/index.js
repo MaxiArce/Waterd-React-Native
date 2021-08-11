@@ -1,11 +1,12 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../../constants/colors";
-import HomeScreen from "../../screens/HomeScreen";
+import HomeScreen from "../../screens/home/HomeScreen";
+import WeatherScreen from "../../screens/home/WeatherScreen";
 
 const HomeStack = createStackNavigator();
 
-const MyPlantsNavigator = () => (
+const HomeNavigator = () => (
   <HomeStack.Navigator
     initialRouteName="Home"
     screenOptions={{
@@ -28,11 +29,31 @@ const MyPlantsNavigator = () => (
       name="Home"
       component={HomeScreen}
       options={({ navigation }) => ({
-        title: "Inicio",
+        title: "Hola!",
         headerTitleAlign: "left",
+      })}
+    />
+    <HomeStack.Screen
+      name="Weather"
+      component={WeatherScreen}
+      options={({ navigation }) => ({
+        title: "",
+        headerTitleStyle: {
+          fontSize: 34,
+          fontFamily: "canela-bold",
+          color: "white",
+        },
+        headerTitleAlign: "left",
+        headerTintColor: "#fff",
+        headerStyle: {
+          backgroundColor: Colors.PRIMARY_DARK,
+          height: 96,
+          elevation: 0, // remove shadow on Android
+          shadowOpacity: 0, // remove shadow on iOS
+        },
       })}
     />
   </HomeStack.Navigator>
 );
 
-export default MyPlantsNavigator;
+export default HomeNavigator;

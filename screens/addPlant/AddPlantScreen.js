@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import { addPlant } from "../store/actions/plants.action";
-import Colors from "../constants/colors";
-import Input from "../components/Input";
-import CustomButton from "../components/CustomButton";
+import { addPlant } from "../../store/actions/plants.action";
+import Colors from "../../constants/colors";
+import Input from "../../components/Input";
+import CustomButton from "../../components/CustomButton";
 import { Ionicons } from "@expo/vector-icons";
 
 const AddPlantScreen = ({ navigation }) => {
@@ -58,7 +58,7 @@ const AddPlantScreen = ({ navigation }) => {
         }}
       >
         <Image
-          source={require("../assets/images/Plant3.png")}
+          source={require("../../assets/images/Plant3.png")}
           resizeMode="contain"
           style={styles.image}
         />

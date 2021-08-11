@@ -1,8 +1,8 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../../constants/colors";
-import PlantDetailsScreen from "../../screens/PlantDetailsScreen";
-import MyPlantsListScreen from "../../screens/MyPlantsListScreen";
+import PlantDetailsScreen from "../../screens/myPlants/PlantDetailsScreen";
+import MyPlantsListScreen from "../../screens/myPlants/MyPlantsListScreen";
 
 const MyPlantsStack = createStackNavigator();
 

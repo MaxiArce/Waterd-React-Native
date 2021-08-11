@@ -5,9 +5,9 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { loadPlants, selectPlant } from '../store/actions/plants.action'
-import Colors from "../constants/colors";
-import PlantItemRow from "../components/PlantItemRow";
+import { loadPlants, selectPlant } from '../../store/actions/plants.action';
+import Colors from "../../constants/colors";
+import PlantItemRow from "../../components/PlantItemRow";
 
 const ListScreen = ( {navigation} ) => {
 

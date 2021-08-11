@@ -1,10 +1,10 @@
 import React, { useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import PlantDetailsCard from "../components/PlantDetailsCard";
-import Colors from "../constants/colors";
+import PlantDetailsCard from "../../components/PlantDetailsCard";
+import Colors from "../../constants/colors";
 import { AntDesign } from "@expo/vector-icons";
-import { deletePlant } from '../store/actions/plants.action'
+import { deletePlant } from '../../store/actions/plants.action'
 
 const ItemDetailsScreen = ({ navigation }) => {
 

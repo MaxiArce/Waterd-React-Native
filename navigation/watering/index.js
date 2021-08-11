@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Colors from "../../constants/colors";
-import WateringScreen from "../../screens/WateringScreen";
+import WateringScreen from "../../screens/watering/WateringScreen";
 
 const WateringStack = createStackNavigator();
 

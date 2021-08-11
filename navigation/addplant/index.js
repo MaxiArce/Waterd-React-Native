@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { TouchableOpacity } from "react-native";
 import Colors from "../../constants/colors";
-import AddPlantScreen from "../../screens/AddPlantScreen";
+import AddPlantScreen from "../../screens/addPlant/AddPlantScreen";
 import { AntDesign } from "@expo/vector-icons";
 
 const AddPlantStack = createStackNavigator();
