@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
   const getLocationHandler = async () => {
     try {
       const location = await Location.getCurrentPositionAsync({
-        // accuracy: 6,
+        accuracy: 6,
         timeout: 5000,
       });
       const locationData = {
