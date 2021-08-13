@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Location from "expo-location";
 import { getForecast } from "../../store/actions/weather.actions";
 import Colors from "../../constants/colors";
@@ -17,6 +16,7 @@ import Colors from "../../constants/colors";
 const HomeScreen = ({ navigation }) => {
   //store
   const dispatch = useDispatch();
+  const displayName = useSelector((state) => state.auth.displayName);
   const currentWeather = useSelector((state) => state.weather.current);
   const forecastWeather = useSelector((state) => state.weather.forecastList);
 
@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
         accuracy: 6,
         timeout: 5000,
       });
-      const locationData = await {
+      const locationData =  {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
       };
@@ -72,6 +72,7 @@ const HomeScreen = ({ navigation }) => {
       headerRightContainerStyle: {
         paddingEnd: 16,
       },
+      title: `Hola ${displayName}!`,
       headerRight: () => (
         <TouchableOpacity
           onPress={() => {

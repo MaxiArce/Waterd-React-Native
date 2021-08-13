@@ -29,7 +29,7 @@ const HomeNavigator = () => (
       name="Home"
       component={HomeScreen}
       options={({ navigation }) => ({
-        title: "Hola!",
+        title: "",
         headerTitleAlign: "left",
       })}
     />

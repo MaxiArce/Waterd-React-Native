@@ -11,7 +11,7 @@ const errorMessages = {
   EMAIL_EXISTS: "Email ya se encuentra registrado",
 };
 
-export const signup = (email, password) => {
+export const signup = (displayName, email, password) => {
   return async (dispatch) => {
     const response = await fetch(URL_AUTH_SIGNUP, {
       method: "POST",
@@ -21,6 +21,7 @@ export const signup = (email, password) => {
       body: JSON.stringify({
         email,
         password,
+        displayName,
         returnSecureToken: true,
       }),
     });
@@ -38,10 +39,16 @@ export const signup = (email, password) => {
 
     const resData = await response.json();
     //save id to asyncstorage
+    AsyncStorage.setItem("display_name", resData.displayName);
     AsyncStorage.setItem("user_token", resData.idToken);
     AsyncStorage.setItem("user_local_id", resData.localId);
     //dispatch id to store
-    dispatch({ type: SIGNUP, token: resData.idToken, user: resData.localId });
+    dispatch({
+      type: SIGNUP,
+      displayName: resData.displayName,
+      token: resData.idToken,
+      user: resData.localId,
+    });
   };
 };
 
@@ -58,25 +65,38 @@ export const login = (email, password) => {
         returnSecureToken: true,
       }),
     });
-    
+
     if (!response.ok) throw new Error("No se pudo acceder");
 
     const resData = await response.json();
     //save id to asyncstorage
+    AsyncStorage.setItem("display_name", resData.displayName);
     AsyncStorage.setItem("user_token", resData.idToken);
     AsyncStorage.setItem("user_local_id", resData.localId);
     //dispatch id to store
-    dispatch({ type: LOGIN, token: resData.idToken, user: resData.localId });
+    dispatch({
+      type: LOGIN,
+      displayName: resData.displayName,
+      token: resData.idToken,
+      user: resData.localId,
+    });
   };
 };
 
 //initialize state if the user is already logged in
 export const setInit = () => {
   return async (dispatch) => {
-    const getUser = await AsyncStorage.getItem("user_token").then(
-      (tokenValue) => {
-        AsyncStorage.getItem("user_local_id").then((userValue) => {
-          dispatch({ type: SET_INIT, token: tokenValue, user: userValue });
+    const getUser = await AsyncStorage.getItem("display_name").then(
+      (displayNameValue) => {
+        AsyncStorage.getItem("user_token").then((tokenValue) => {
+          AsyncStorage.getItem("user_local_id").then((userValue) => {
+            dispatch({
+              type: SET_INIT,
+              displayName: displayNameValue,
+              token: tokenValue,
+              user: userValue,
+            });
+          });
         });
       }
     );
@@ -85,8 +105,9 @@ export const setInit = () => {
 
 export const logOut = () => {
   return async (dispatch) => {
+    AsyncStorage.setItem("display_name", "");
     AsyncStorage.setItem("user_token", "");
     AsyncStorage.setItem("user_local_id", "");
-    dispatch({ type: LOG_OUT, token: null, user: null });
+    dispatch({ type: LOG_OUT,displayName: null, token: null, user: null });
   };
 };
