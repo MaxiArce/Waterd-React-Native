@@ -58,7 +58,7 @@ export const login = (email, password) => {
         returnSecureToken: true,
       }),
     });
-
+    
     if (!response.ok) throw new Error("No se pudo acceder");
 
     const resData = await response.json();

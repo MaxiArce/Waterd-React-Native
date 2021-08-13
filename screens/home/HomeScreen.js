@@ -33,15 +33,15 @@ const HomeScreen = ({ navigation }) => {
           "Necesita dar permisos de localización para obtener el clima",
           [{ text: "Ok" }]
         );
+      }else{
+        getLocationHandler();
       }
     })();
   }, []);
 
   //useEffect to update location
   useEffect(() => {
-    if (!currentLocation) {
-      getLocationHandler();
-    } else {
+    if (currentLocation) {
       dispatch(getForecast(currentLocation));
     }
   }, [currentLocation]);
@@ -53,7 +53,7 @@ const HomeScreen = ({ navigation }) => {
         accuracy: 6,
         timeout: 5000,
       });
-      const locationData = {
+      const locationData = await {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
       };
@@ -87,7 +87,7 @@ const HomeScreen = ({ navigation }) => {
               <Text>{currentWeather.temp}°c</Text>
             </View>
           ) : (
-            <ActivityIndicator />
+            <ActivityIndicator size="small" color={Colors.PRIMARY_DARK} />
           )}
         </TouchableOpacity>
       ),

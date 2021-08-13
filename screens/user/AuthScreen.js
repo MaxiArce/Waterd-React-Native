@@ -133,17 +133,20 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'red'
+  },
+  container: {
+    width: '100%',
+    height: '50%',
+    maxHeight: 400,
+    backgroundColor: 'blue'
   },
   appTitle: {
     paddingHorizontal: 16,
     fontSize: 34,
     fontFamily: "canela-bold",
   },
-  container: {
-    width: '100%',
-    height: '50%',
-    maxHeight: 400,
-  },
+
 })
 
 export default AuthScreen;
