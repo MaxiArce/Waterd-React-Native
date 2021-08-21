@@ -14,6 +14,7 @@ import { getForecast } from "../../store/actions/weather.actions";
 import Colors from "../../constants/colors";
 
 const HomeScreen = ({ navigation }) => {
+
   //store
   const dispatch = useDispatch();
   const displayName = useSelector((state) => state.auth.displayName);
@@ -70,7 +71,9 @@ const HomeScreen = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRightContainerStyle: {
+        width:64,
         paddingEnd: 16,
+        alignContent: 'center'
       },
       title: `Hola ${displayName}!`,
       headerRight: () => (
@@ -85,7 +88,7 @@ const HomeScreen = ({ navigation }) => {
                 style={styles.weatherIcon}
                 source={{ uri: currentWeather.icon }}
               />
-              <Text>{currentWeather.temp}°c</Text>
+              <Text style={styles.weatherText}>{currentWeather.temp}°c</Text>
             </View>
           ) : (
             <ActivityIndicator size="small" color={Colors.PRIMARY_DARK} />
@@ -106,15 +109,21 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   weatherContainer: {
+    flex:1,
     flexDirection: 'column',
     alignContent: 'center',
-    width: 24,
-    height: 24,
+    justifyContent: 'center',
+    width: 48,
+    height: 48,
   },
   weatherIcon: {
-    width: 32,
-    height: 24,
+    width: 48,
+    height: 48,
   },
+  weatherText: {
+    textAlign: 'center',
+    fontFamily: 'jakarta-bold'
+  }
 });
 
 export default HomeScreen;

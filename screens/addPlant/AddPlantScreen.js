@@ -1,136 +1,97 @@
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Alert,
-  Image,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Alert, Text, ScrollView } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { addPlant } from "../../store/actions/plants.action";
-import Colors from "../../constants/colors";
+import IconPicker from "../../components/IconPicker";
+import TypeOfPlantPicker from "../../components/TypeOfPlantPicker";
+import WateringDaysPicker from "../../components/WateringDaysPicker";
 import Input from "../../components/Input";
+import Colors from "../../constants/colors";
 import CustomButton from "../../components/CustomButton";
-import { Ionicons } from "@expo/vector-icons";
 
-const AddPlantScreen = ({ navigation }) => {
+const AddPlantScreen = ({ navigation, route }) => {
+  const identifiedPlant = route.params;
+
   const dispatch = useDispatch();
 
   //InputText states
-  const [inputNameText, setInputNameText] = useState("");
-  const [inputDescriptionText, setInputDescriptionText] = useState("");
+  const [inputNameText, setInputNameText] = useState(
+    identifiedPlant.species.commonNames[0]
+  );
+  const [selectedIcon, setSelectedIcon] = useState();
+  const [isExteriorPlant, setIsExteriorPlant] = useState(false);
+  const [wateringDays, setWateringDays] = useState(1);
 
   //gets user from store
   const user = useSelector((state) => state.auth.user);
 
-  //Triggers when the view is not focused
-  const isFocused = useIsFocused();
-
-  useEffect(() => {
-    setInputNameText("");
-    setInputDescriptionText("");
-  }, [isFocused]);
-
   const handleAddItem = () => {
-    if (inputNameText && inputDescriptionText) {
+    if (inputNameText && selectedIcon && wateringDays) {
+
       const payload = {
         name: inputNameText,
-        description: inputDescriptionText,
-        image:
-          "https://firebasestorage.googleapis.com/v0/b/react-native-test-4cb23.appspot.com/o/Plant1.png?alt=media&token=cefc36a6-08bc-4840-9f16-ac096e0d11b0",
+        iconId: selectedIcon,
+        isExteriorPlant: isExteriorPlant,
+        wateringDays: wateringDays,
+        wateringTimeStamp: ""
       };
 
       dispatch(addPlant(payload, user));
-      navigation.goBack();
+      navigation.navigate("MyPlants");
     } else {
-      Alert.alert("Ingresa un valor!");
+      Alert.alert("Completa todos los valores!");
     }
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.screen}>
-      <TouchableOpacity
-        style={styles.imgContainer}
-        onPress={() => {
-          Alert.alert("No implementado");
-        }}
-      >
-        <Image
-          source={require("../../assets/images/Plant3.png")}
-          resizeMode="contain"
-          style={styles.image}
-        />
-        <View style={styles.addImgContainer}>
-          <Ionicons name="md-camera-outline" size={24} color="white" />
-        </View>
-      </TouchableOpacity>
-
-      <View style={styles.textInputContainer}>
+    <View style={styles.screen}>
+      <ScrollView style={styles.container}>
+        <Text style={styles.sectionTitle}>Nombre de tu planta</Text>
         <Input
-          style={styles.textInput}
-          placeholder="Nombre de la planta"
-          placeholderTextColor={Colors.TEXT_LIGHT}
-          onChangeText={(text) => setInputNameText(text)}
+          style={styles.input}
+          placeholder={"Nombre"}
           value={inputNameText}
+          onChangeText={(value) => {
+            setInputNameText(value);
+          }}
         />
-        <Input
-          style={styles.textInput}
-          placeholder="Detalles"
-          placeholderTextColor={Colors.TEXT_LIGHT}
-          onChangeText={(text) => setInputDescriptionText(text)}
-          value={inputDescriptionText}
+        <Text style={styles.sectionTitle}>Selecciona un icono</Text>
+        <IconPicker onSelectedIcon={setSelectedIcon} />
+        <Text style={styles.sectionTitle}>Planta de interior o exterior?</Text>
+        <TypeOfPlantPicker onSelected={setIsExteriorPlant} />
+        <Text style={styles.sectionTitle}>
+          Cada cuanto debes regar tu planta?
+        </Text>
+        <WateringDaysPicker onSelected={setWateringDays} />
+        <CustomButton
+          value={"Guardar"}
+          onPress={() => {
+            handleAddItem();
+          }}
         />
-      </View>
-      <CustomButton
-        style={styles.customButton}
-        value="Guardar"
-        onPress={handleAddItem}
-      />
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    alignItems: "center",
-    backgroundColor: Colors.accent,
+    backgroundColor: "white",
+    paddingTop: 16,
   },
-  imgContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: 150,
-    height: 150,
-    marginVertical: 16,
-    borderRadius: 75,
-    backgroundColor: Colors.SECONDARY_LIGHT,
+  container: {},
+  input: {
+    textTransform: "capitalize",
   },
-  addImgContainer: {
-    position: "absolute",
-    bottom: 0,
-    right: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    height: 42,
-    width: 42,
-    borderRadius: 24,
-    backgroundColor: Colors.PRIMARY_DARK,
-  },
-  textInputContainer: {
-    flexDirection: "column",
-    width: "100%",
-    alignContent: "center",
-    justifyContent: "center",
-  },
-  customButton: {
-    marginTop: 16,
-    // position: "absolute",
-    // bottom: 32,
-  },
-  image: {
-    height: 100,
+  sectionTitle: {
+    alignSelf: "center",
+    paddingVertical: 11,
+    marginVertical: 22,
+    fontSize: 19,
+    fontFamily: "jakarta-bold",
+    color: Colors.PRIMARY_DARK,
   },
 });
 

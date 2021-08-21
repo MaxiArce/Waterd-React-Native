@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 import CustomButton from "../../components/CustomButton";
 import { logOut } from "../../store/actions/auth.actions";
 import { AntDesign } from "@expo/vector-icons";
@@ -8,6 +8,7 @@ import Colors from "../../constants/colors";
 
 const ProfileScreen = ({ navigation }) => {
   const displayName = useSelector((state) => state.auth.displayName);
+  const plants = useSelector((state) => state.plants.list)
   const dispatch = useDispatch();
   const logoutHandler = () => {
     dispatch(logOut());
@@ -33,11 +34,11 @@ const ProfileScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <Text>{displayName}</Text>
-      <CustomButton
-        value="Cerrar sesión"
-        onPress={logoutHandler}
-      ></CustomButton>
+      <View style={styles.profileInfoContainer}>
+        <Image style={styles.profileBgImage} source={require('../../assets/images/ProfileBg.png')}></Image>
+         <Text style={styles.userName}>{displayName}</Text>
+      </View>
+      <Text>Actualmente tienes {plants.length} plantas.</Text>
     </View>
   );
 };
@@ -46,6 +47,25 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
+  profileInfoContainer: {
+    // backgroundColor:'blue',
+    width: '100%',
+    height: 250,
+    overflow: 'hidden'
+  },
+  profileBgImage: {
+    maxWidth: '100%',
+    resizeMode: 'cover',
+    height: 250,
+  },
+  userName:{
+    position:'absolute',
+    bottom:16,
+    left: 16,
+    color:Colors.TEXT_DARK,
+    fontSize: 32,
+    fontFamily: 'canela-bold'
+  }
 });
 
 export default ProfileScreen;

@@ -12,9 +12,7 @@ const ItemDetailsScreen = ({ navigation }) => {
   const plant = useSelector((state) => state.plants.selected);
   const user = useSelector((state) => state.auth.user);
 
-
   const handleDeleteItem = (refId, user) =>{ dispatch(deletePlant(refId,user))}
-
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -36,7 +34,7 @@ const ItemDetailsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.screen}>
-      <PlantDetailsCard item={plant} />
+      <PlantDetailsCard item={plant} navigation={navigation} />
     </View>
   );
 };

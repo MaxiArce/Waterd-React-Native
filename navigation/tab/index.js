@@ -60,6 +60,7 @@ const TabNavigator = () => {
               <AddPlantIcon />
             </View>
           ),
+          unmountOnBlur : true,
           tabBarVisible: false
         }}
       />

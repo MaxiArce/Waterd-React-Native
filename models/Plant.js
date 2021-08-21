@@ -1,10 +1,13 @@
 class Plant {
-    constructor(refId, name, description, image) {
+    constructor(refId, name, iconId, isExteriorPlant,wateringDays,wateringTimeStamp) {
       this.refId = refId.toString();
       this.name = name;
-      this.description = description;
-      this.image = image;
+      this.iconId = iconId;
+      this.isExteriorPlant = isExteriorPlant;
+      this.wateringDays = wateringDays;
+      this.wateringTimeStamp = wateringTimeStamp;
     }
   }
   
   export default Plant;
+

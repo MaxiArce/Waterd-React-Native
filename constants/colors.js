@@ -4,5 +4,6 @@ export default {
     SECONDARY_DARK: '#F0B69A',
     SECONDARY_LIGHT: '#F8E6D3',
     TEXT_DARK: '#000000',
-    TEXT_LIGHT: "#3C3C4399"
+    TEXT_LIGHT: "#3C3C4399",
+    WARNING: "#EE6969"
 } 

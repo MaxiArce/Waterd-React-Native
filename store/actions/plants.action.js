@@ -67,12 +67,14 @@ export const addPlant = (payload, user) => {
       //add plant to sqlite db and state if response is ok
       if (response.ok) {
         //add plant to sqlite db
-        insertNewPlant(
-          result.name,
-          payload.name,
-          payload.description,
-          payload.image
-        ),
+        insertNewPlant( {
+          refId: result.name,
+          name: payload.name,
+          iconId: payload.iconId,
+          isExteriorPlant: payload.isExteriorPlant,
+          wateringDays: payload.wateringDays,
+          wateringTimeStamp: payload.wateringTimeStamp
+        }),
           //dispatch to store
           dispatch({
             type: ADD_PLANT,

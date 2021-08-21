@@ -13,8 +13,10 @@ export const init = () => {
           id INTEGER PRIMARY KEY NOT NULL,
           refId TEXT NOT NULL,
           name TEXT NOT NULL,
-          description TEXT NOT NULL,
-          image TEXT NOT NULL
+          iconId TEXT NOT NULL,
+          isExteriorPlant TEXT NOT NULL,
+          wateringDays INTEGER NOT NULL,
+          wateringTimeStamp TEXT         
         )`,
         [],
         () => {
@@ -51,12 +53,12 @@ export const updateSQL = async (user) => {
 };
 
 //insert new plant to sql db
-export const insertNewPlant = ({refId, name, description, image}) => {
+export const insertNewPlant = ({refId, name, iconId, isExteriorPlant, wateringDays, wateringTimeStamp}) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        `INSERT INTO plants (refId, name, description, image) VALUES (?, ?, ?, ?)`,
-        [refId, name, description, image],
+        `INSERT INTO plants (refId, name, iconId, isExteriorPlant, wateringDays, wateringTimeStamp) VALUES (?, ?, ?, ?, ?, ?)`,
+        [refId, name, iconId, isExteriorPlant,wateringDays, wateringTimeStamp],
         (_, result) => resolve(result),
         (_, err) => reject(err)
       );
@@ -95,7 +97,6 @@ export const fetchPlants = () => {
       );
     });
   });
-
   return promise;
 };
 

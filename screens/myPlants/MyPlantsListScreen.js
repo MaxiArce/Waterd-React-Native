@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import { loadPlants, selectPlant } from '../../store/actions/plants.action';
 import Colors from "../../constants/colors";
-import PlantItemRow from "../../components/PlantItemRow";
+import PlantItemCard from "../../components/PlantItemCard";
 
 const ListScreen = ( {navigation} ) => {
 
@@ -26,13 +26,16 @@ const ListScreen = ( {navigation} ) => {
     navigation.navigate('PlantDetailsScreen', { name: selectedPlant.name });
   }
 
-  const renderItem = ({ item }) => <PlantItemRow item={item} onSelected={handleSelected} />
+  const renderItem = ({ item }) => <PlantItemCard item={item} onSelected={handleSelected} />
 
   return (
     <View style={styles.screen}>
       <FlatList
-        style={styles.listContainer}
+        contentContainerStyle={styles.listContainer}
+        columnWrapperStyle={{justifyContent: 'space-between'}}
         data={plants}
+        horizontal={false}
+        numColumns = {2}
         keyExtractor={item => item.refId}
         renderItem={renderItem}
       />
@@ -43,11 +46,13 @@ const ListScreen = ( {navigation} ) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    alignItems: "center",
     backgroundColor: "white",
     paddingVertical: 16,
-    marginBottom: 49,
   },
+  listContainer:{
+    alignSelf: 'stretch',
+    marginHorizontal: 16,
+  }
 });
 
 export default ListScreen;

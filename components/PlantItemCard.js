@@ -9,11 +9,14 @@ import {
   Image,
 } from "react-native";
 import Colors from "../constants/colors";
-import Card from "./Card";
+import { PLANTS_ICONS } from "../data/plantsIcons";
 
 
-const PlantItemRow = ({ item, onSelected }) => {
+const PlantItemCard = ({ item, onSelected }) => {
 
+  const iconImage = PLANTS_ICONS.find(obj => {
+      return obj.id === item.iconId
+  })
   
   const TouchableComponent =
     Platform.OS === "android" && Platform.version >= 21
@@ -21,62 +24,48 @@ const PlantItemRow = ({ item, onSelected }) => {
       : TouchableOpacity;
 
   return (
-    <TouchableComponent
+    <TouchableComponent style={styles.container}
       onPress={() => {
         onSelected(item);
       }}
     >
-      <Card>
-        <View style={styles.contentContainer}>
           <Image
             style={styles.image}
             resizeMode="contain"
-            source={{uri: item.image}}
+            source={source=iconImage.image}
           />
           <View style={styles.cardDetails}>
             <Text style={styles.cartText}>{item.name}</Text>
-            <Text style={styles.cartDescription}>{item.description}</Text>
-          </View>
         </View>
-      </Card>
     </TouchableComponent>
   );
 };
 
 const styles = StyleSheet.create({
-  contentContainer: {
-    flexDirection: "row",
-    width: "100%",
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    justifyContent: "space-between",
+  container: {
+    flexDirection: "column",
+    width: '48%',
+    marginBottom: 22,
+    padding:11,
+    overflow: 'hidden',
+    backgroundColor: Colors.SECONDARY_LIGHT,
+    borderRadius:11
   },
   image: {
-    width: 48,
-    height: 48,
+    width: '100%',
+    height: 150,
     paddingVertical: 4,
-    backgroundColor: Colors.SECONDARY_LIGHT,
     borderRadius: 24,
-  },
-  cardDetails: {
-    width: 300,
-    paddingLeft: 12,
   },
   cartText: {
     fontFamily: "jakarta-bold",
     fontSize: 15,
-    color: Colors.TEXT_DARK,
+    textAlign: 'center',
+    marginTop: 11,
+    textTransform: 'capitalize',
+    color: Colors.PRIMARY_DARK,
   },
-  cartDescription: {
-    fontFamily: "jakarta",
-    fontSize: 13,
-    color: Colors.TEXT_LIGHT,
-  },
-  deleteButton: {
-    width:24,
-    height:24,
-  }
 
 });
 
-export default PlantItemRow;
+export default PlantItemCard;

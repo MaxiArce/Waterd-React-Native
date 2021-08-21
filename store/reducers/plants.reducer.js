@@ -28,8 +28,10 @@ const PlantsReducer = (state = initialState, action) => {
             new Plant(
               item.refId.toString(),
               item.name,
-              item.description,
-              item.image
+              item.iconId,
+              item.isExteriorPlant,
+              item.wateringDays,
+              item.wateringTimeStamp
             )
         ),
       };
@@ -38,8 +40,10 @@ const PlantsReducer = (state = initialState, action) => {
       const newPlant = new Plant(
         action.payload.refId.toString(),
         action.payload.name,
-        action.payload.description,
-        action.payload.image
+        action.payload.iconId,
+        action.payload.isExteriorPlant,
+        action.payload.wateringDays,
+        action.payload.wateringTimeStamp
       );
       return {
         ...state,
