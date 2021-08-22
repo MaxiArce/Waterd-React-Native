@@ -84,6 +84,23 @@ export const deleteRowPlant = (refId) => {
   return promise;
 };
 
+//updates watering time stamp from sql db 
+export const updateWateringTimeStamp = (currentDate,refId) => {
+  const promise = new Promise((resolve, reject) => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        `UPDATE plants SET wateringTimeStamp=? WHERE refId=?`,
+        [currentDate,refId],
+        (_, result) => resolve(result),
+        (_, err) => reject(err)
+      );
+    });
+  });
+
+  return promise;
+};
+
+
 
 //fetch plants from sql db
 export const fetchPlants = () => {

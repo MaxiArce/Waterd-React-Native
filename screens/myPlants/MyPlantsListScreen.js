@@ -33,7 +33,7 @@ const ListScreen = ( {navigation} ) => {
       <FlatList
         contentContainerStyle={styles.listContainer}
         columnWrapperStyle={{justifyContent: 'space-between'}}
-        data={plants}
+        data={plants.sort((a, b) => a.name.localeCompare(b.name))}
         horizontal={false}
         numColumns = {2}
         keyExtractor={item => item.refId}

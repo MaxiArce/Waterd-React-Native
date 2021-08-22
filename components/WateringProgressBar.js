@@ -10,10 +10,10 @@ const WateringProgressBar = ({
   progressWidth,
   showDetails,
 }) => {
-
   let progress = 0;
   let dif = 0;
 
+  //get dif between the time stamp and the current time and provides the progress for the progress bar
   if (wateringTimeStamp) {
     const currentDate = new Date();
     const lastWateringDate = new Date(wateringTimeStamp);
@@ -23,9 +23,12 @@ const WateringProgressBar = ({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.wateringStatusText}>
-        Tu planta debe regarse cada {wateringDays} días
-      </Text>
+      {showDetails && (
+        <Text style={styles.wateringStatusText}>
+          Tu planta debe regarse cada {wateringDays} días
+        </Text>
+      )}
+
       <View style={styles.wateringProgressBarContainer}>
         <View>
           <Progress.Bar
@@ -43,7 +46,12 @@ const WateringProgressBar = ({
           color={progress > 0 ? Colors.PRIMARY_DARK : Colors.WARNING}
         />
       </View>
-      <Text style={styles.wateringStatusText}>Siguiente riego en {dif.toFixed(0)} días</Text>
+
+      {showDetails && (
+        <Text style={styles.wateringStatusText}>
+          Siguiente riego en {dif.toFixed(0)} días
+        </Text>
+      )}
     </View>
   );
 };
@@ -54,8 +62,8 @@ const styles = StyleSheet.create({
   },
   wateringProgressBarContainer: {
     flexDirection: "row",
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   wateringStatusText: {
     fontSize: 15,

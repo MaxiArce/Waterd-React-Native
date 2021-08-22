@@ -3,6 +3,7 @@ import {
   SELECT_PLANT,
   LOAD_PLANTS,
   DELETE_PLANT,
+  WATER_PLANT
 } from "../actions/plants.action";
 import Plant from "../../models/Plant";
 
@@ -12,18 +13,18 @@ const initialState = {
 };
 
 const PlantsReducer = (state = initialState, action) => {
+
   switch (action.type) {
     case SELECT_PLANT:
       return {
         ...state,
-        selected: state.list.find((plants) => plants.refId === action.plantID),
+        selected: state.list.find((plant) => plant.refId === action.plantID),
       };
-
 
     case LOAD_PLANTS:
       return {
         ...state,
-        list : action.list.map(
+        list: action.list.map(
           (item) =>
             new Plant(
               item.refId.toString(),
@@ -52,7 +53,13 @@ const PlantsReducer = (state = initialState, action) => {
     case DELETE_PLANT:
       return {
         ...state,
-        list: state.list.filter((plants) => plants.refId !== action.plantID),
+        list: state.list.filter((plant) => plant.refId !== action.plantID),
+      };
+    case WATER_PLANT:
+      const newList = state.list.map(plant=> plant.refId === action.plantID ? {...plant, wateringTimeStamp: action.timeStamp}: plant)
+      return{
+        ...state,
+        list: newList
       };
     default:
       return state;

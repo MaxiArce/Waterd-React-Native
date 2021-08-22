@@ -1,11 +1,18 @@
 import { Alert } from "react-native";
 import { URL_API } from "../../constants/database";
+import {
+  insertNewPlant,
+  fetchPlants,
+  deleteRowPlant,
+  updateWateringTimeStamp,
+} from "../../db";
+
 export const SELECT_PLANT = "SELECT_PLANT";
 export const ADD_PLANT = "ADD_PLANT";
 export const DELETE_PLANT = "DELETE_PLANT";
 export const LOAD_PLANTS = "LOAD_PLANTS";
-export const UPDATE_PLANTS = "UPDATE_PLANTS";
-import { insertNewPlant, fetchPlants, deleteRowPlant } from "../../db";
+// export const UPDATE_PLANTS = "UPDATE_PLANTS";
+export const WATER_PLANT = "WATER_PLANT";
 
 //allows to set selected plant
 export const selectPlant = (refId) => ({
@@ -13,7 +20,7 @@ export const selectPlant = (refId) => ({
   plantID: refId,
 });
 
-//allows to delete a selected plant using the id 
+//allows to delete a selected plant using the id
 export const deletePlant = (refId, user) => {
   return async (dispatch) => {
     try {
@@ -25,7 +32,7 @@ export const deletePlant = (refId, user) => {
       );
       if (response.ok) {
         //delete from sqlite db
-        deleteRowPlant(refId)
+        deleteRowPlant(refId);
         //delete from store
         dispatch({ type: DELETE_PLANT, plantID: refId });
       } else {
@@ -37,7 +44,7 @@ export const deletePlant = (refId, user) => {
   };
 };
 
-//load plants from sql and set them to the store 
+//load plants from sql and set them to the store
 export const loadPlants = () => {
   return async (dispatch) => {
     try {
@@ -67,19 +74,52 @@ export const addPlant = (payload, user) => {
       //add plant to sqlite db and state if response is ok
       if (response.ok) {
         //add plant to sqlite db
-        insertNewPlant( {
+        insertNewPlant({
           refId: result.name,
           name: payload.name,
           iconId: payload.iconId,
           isExteriorPlant: payload.isExteriorPlant,
           wateringDays: payload.wateringDays,
-          wateringTimeStamp: payload.wateringTimeStamp
+          wateringTimeStamp: payload.wateringTimeStamp,
         }),
           //dispatch to store
           dispatch({
             type: ADD_PLANT,
             payload: { refId: result.name, ...payload },
           });
+      } else {
+        Alert.alert("Ha ocurrido un error", ""[{ text: "OK" }]);
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+//set a new timeStamp for the last time the plant was watered
+export const waterPlant = (user, refId, currentDate) => {
+  return async (dispatch) => {
+    try {
+      const payload = { wateringTimeStamp: currentDate };
+
+      const response = await fetch(
+        `${URL_API}/Users/${user}/Plants/${refId}.json`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...payload,
+          }),
+        }
+      );
+      //update sqlite db
+      updateWateringTimeStamp(currentDate, refId);
+      // //update store
+      dispatch({ type: WATER_PLANT, plantID: refId, timeStamp : currentDate });
+      if (response.ok) {
+        console.log("regada");
       } else {
         Alert.alert("Ha ocurrido un error", ""[{ text: "OK" }]);
       }
