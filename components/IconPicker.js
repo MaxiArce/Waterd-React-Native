@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import Colors from "../constants/colors";
-import { PLANTS_ICONS } from "../data/plantsIcons";
+import { PLANTS_ICONS } from "../constants/plantsIcons";
 
 const IconPicker = ({onSelectedIcon}) => {
 

@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import Colors from "../constants/colors";
-import { PLANTS_ICONS } from "../data/plantsIcons";
+import { PLANTS_ICONS } from "../constants/plantsIcons";
 import { waterPlant } from "../store/actions/plants.action";
 import WateringProgressBar from "../components/WateringProgressBar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";

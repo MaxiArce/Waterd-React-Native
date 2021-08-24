@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import Colors from "../constants/colors";
-import { PLANTS_ICONS } from "../data/plantsIcons";
+import { PLANTS_ICONS } from "../constants/plantsIcons";
 
 const PlantItemCard = ({ item, onSelected }) => {
   const iconImage = PLANTS_ICONS.find((obj) => {

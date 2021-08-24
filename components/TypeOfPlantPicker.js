@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, StyleSheet, TouchableOpacity, Image } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
-import { set } from "react-native-reanimated";
 import Colors from "../constants/colors";
 
 const TypeOfPlantPicker = ({onSelected}) => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View, Text, Image,Dimensions, TouchableOpacity } from "react-native";
 import Colors from "../constants/colors";
-import { PLANTS_ICONS } from "../data/plantsIcons";
+import { PLANTS_ICONS } from "../constants/plantsIcons";
 import WateringProgressBar from "../components/WateringProgressBar";
 import { Ionicons } from "@expo/vector-icons";
 

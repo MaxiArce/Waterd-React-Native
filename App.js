@@ -32,13 +32,13 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <MainNavigator></MainNavigator>
+      <MainNavigator style={styles.screen}></MainNavigator>
     </Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  screen: {
     flex: 1,
   },
 });
