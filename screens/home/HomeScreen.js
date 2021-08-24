@@ -7,19 +7,29 @@ import {
   Text,
   Image,
   ActivityIndicator,
+  SafeAreaView,
+  ScrollView,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import * as Location from "expo-location";
 import { getForecast } from "../../store/actions/weather.actions";
 import Colors from "../../constants/colors";
+import WeatherWidget from "../../components/WeatherWidget";
+import PlantsStatusWidget from "../../components/PlantsStatusWidget";
+import { loadPlants } from "../../store/actions/plants.action";
 
 const HomeScreen = ({ navigation }) => {
-
   //store
   const dispatch = useDispatch();
   const displayName = useSelector((state) => state.auth.displayName);
-  const currentWeather = useSelector((state) => state.weather.current);
-  const forecastWeather = useSelector((state) => state.weather.forecastList);
+  const plants = useSelector((state) => state.plants.list);
+
+  //set the title with the username
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `Hola ${displayName}`,
+    });
+  }, []);
 
   //saves currentLocation
   const [currentLocation, setCurrentLocation] = useState();
@@ -34,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
           "Necesita dar permisos de localización para obtener el clima",
           [{ text: "Ok" }]
         );
-      }else{
+      } else {
         getLocationHandler();
       }
     })();
@@ -54,7 +64,7 @@ const HomeScreen = ({ navigation }) => {
         accuracy: 6,
         timeout: 5000,
       });
-      const locationData =  {
+      const locationData = {
         lat: location.coords.latitude,
         lng: location.coords.longitude,
       };
@@ -67,40 +77,39 @@ const HomeScreen = ({ navigation }) => {
     }
   };
 
-  //set the right icon to the navbar
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRightContainerStyle: {
-        width:64,
-        paddingEnd: 16,
-        alignContent: 'center'
-      },
-      title: `Hola ${displayName}!`,
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("Weather");
-          }}
-        >
-          {currentWeather ? (
-            <View style={styles.weatherContainer}>
-              <Image
-                style={styles.weatherIcon}
-                source={{ uri: currentWeather.icon }}
-              />
-              <Text style={styles.weatherText}>{currentWeather.temp}°c</Text>
-            </View>
-          ) : (
-            <ActivityIndicator size="small" color={Colors.PRIMARY_DARK} />
-          )}
-        </TouchableOpacity>
-      ),
+  //array with plants that need attention
+  const [needAttentionList, setNeedAttentionList] = useState([]);
+
+  //filter array of plants to get the ones that have 0 days to be watered
+  useEffect(() => {
+    const itemList = plants.filter((item) => {
+      if (item.wateringTimeStamp) {
+        const currentDate = new Date();
+        const lastWateringDate = new Date(item.wateringTimeStamp);
+        const dif = (currentDate - lastWateringDate) / (1000 * 3600 * 24);
+        if (dif > item.wateringDays) {
+          console.log(dif);
+          return item;
+        }
+      } else if (item.wateringTimeStamp === "") {
+        return item;
+      }
     });
-  }, [currentWeather]);
+    setNeedAttentionList(itemList);
+  }, [plants]);
 
-  return <View style={styles.screen}>
-
-  </View>;
+  return (
+      <ScrollView style={styles.screen}>
+        <View style={styles.container}>
+        <Text style={styles.sectionTitle}>Estado del tiempo</Text>
+        <WeatherWidget navigation={navigation} />
+        <Text style={{ ...styles.sectionTitle, marginTop: 33 }}>
+          Estado de tus plantas
+        </Text>
+        <PlantsStatusWidget needAttentionList={needAttentionList} />
+        </View>
+      </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -108,22 +117,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
   },
-  weatherContainer: {
-    flex:1,
-    flexDirection: 'column',
-    alignContent: 'center',
-    justifyContent: 'center',
-    width: 48,
-    height: 48,
+  container: {
+    paddingHorizontal:16,
+    paddingBottom: 49
   },
-  weatherIcon: {
-    width: 48,
-    height: 48,
+  sectionTitle: {
+    fontFamily: "jakarta-bold",
+    color: Colors.TEXT_LIGHT,
+    marginVertical: 11,
   },
-  weatherText: {
-    textAlign: 'center',
-    fontFamily: 'jakarta-bold'
-  }
 });
 
 export default HomeScreen;

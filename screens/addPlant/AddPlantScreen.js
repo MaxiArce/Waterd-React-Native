@@ -28,13 +28,12 @@ const AddPlantScreen = ({ navigation, route }) => {
 
   const handleAddItem = () => {
     if (inputNameText && selectedIcon && wateringDays) {
-
       const payload = {
         name: inputNameText,
         iconId: selectedIcon,
         isExteriorPlant: isExteriorPlant,
         wateringDays: wateringDays,
-        wateringTimeStamp: ""
+        wateringTimeStamp: "",
       };
 
       dispatch(addPlant(payload, user));

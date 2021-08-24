@@ -17,7 +17,7 @@ const HomeNavigator = () => (
         height: 96,
       },
       headerTitleStyle: {
-        fontSize: 34,
+        fontSize: 32,
         fontFamily: "canela-bold",
         color: Colors.PRIMARY_DARK,
       },
@@ -33,6 +33,7 @@ const HomeNavigator = () => (
         headerTitleAlign: "left",
         headerStyle: {
           height: 96,
+          backgroundColor: "white",
           elevation: 0, // remove shadow on Android
           shadowOpacity: 0, // remove shadow on iOS
         },
@@ -44,12 +45,11 @@ const HomeNavigator = () => (
       options={({ navigation }) => ({
         title: "",
         headerTitleStyle: {
-          fontSize: 34,
+          fontSize: 32,
           fontFamily: "canela-bold",
           color: "white",
         },
         headerTitleAlign: "left",
-        headerTintColor: "#fff",
         headerStyle: {
           backgroundColor: Colors.PRIMARY_DARK,
           height: 96,

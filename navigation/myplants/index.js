@@ -13,11 +13,10 @@ const MyPlantsNavigator = () => (
       headerStyle: {
         elevation: 0, // remove shadow on Android
         shadowOpacity: 0, // remove shadow on iOS
-        backgroundColor: Colors.primary,
         height: 96,
       },
       headerTitleStyle: {
-        fontSize: 34,
+        fontSize: 32,
         fontFamily: "canela-bold",
         color: Colors.PRIMARY_DARK,
       },

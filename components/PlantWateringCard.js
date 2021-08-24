@@ -7,26 +7,34 @@ import {
   Platform,
   StyleSheet,
   Image,
-  Dimensions
+  Dimensions,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import Colors from "../constants/colors";
 import { PLANTS_ICONS } from "../data/plantsIcons";
-import WateringProgressBar from '../components/WateringProgressBar'
+import { waterPlant } from "../store/actions/plants.action";
+import WateringProgressBar from "../components/WateringProgressBar";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-//get images for the icons using iconId
-const PlantWateringCard = ({ item, onSelected }) => {
-
+const PlantWateringCard = ({ item , showDetails }) => {
+  
+  //get images for the icons using iconId
   const iconImage = PLANTS_ICONS.find((obj) => {
     return obj.id === item.iconId;
   });
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  
+  const handleWatering = (item) => {
+    const currentDate = new Date();
+    dispatch(waterPlant(user,item.refId,currentDate));
+  }
 
-  const TouchableComponent = (
+  const TouchableComponent =
     Platform.OS === "android" && Platform.version >= 21
       ? TouchableNativeFeedback
-      : TouchableOpacity);
- 
+      : TouchableOpacity;
 
   return (
     <View style={styles.container}>
@@ -35,14 +43,24 @@ const PlantWateringCard = ({ item, onSelected }) => {
       </View>
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>{item.name}</Text>
-        <WateringProgressBar         
-        wateringDays={item.wateringDays} 
-        wateringTimeStamp={item.wateringTimeStamp} 
-        progressWidth={Dimensions.get("window").width-220}
-        showDetails= {false}/>
+        <WateringProgressBar
+          wateringDays={item.wateringDays}
+          wateringTimeStamp={item.wateringTimeStamp}
+          progressWidth={Dimensions.get("window").width - 220}
+          showDetails={showDetails}
+        />
       </View>
-      <TouchableComponent style={styles.wateringButton} onPress={()=>{onSelected(item)}}>
-        <MaterialCommunityIcons name="watering-can-outline" size={24} color={Colors.PRIMARY_DARK} />
+      <TouchableComponent
+        style={styles.wateringButton}
+        onPress={() => {
+          handleWatering(item);
+        }}
+      >
+        <MaterialCommunityIcons
+          name="watering-can-outline"
+          size={24}
+          color={Colors.PRIMARY_DARK}
+        />
       </TouchableComponent>
     </View>
   );
@@ -50,12 +68,22 @@ const PlantWateringCard = ({ item, onSelected }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
+    width: '100%',
     height: 96,
     backgroundColor: Colors.SECONDARY_LIGHT,
     borderRadius: 11,
-    marginBottom: 22,
-    justifyContent: 'space-between'
+    marginVertical: 11,
+    justifyContent: "space-between",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    elevation: 5,
   },
   imageContainer: {
     height: 96,
@@ -68,28 +96,28 @@ const styles = StyleSheet.create({
     height: "100%",
     resizeMode: "contain",
   },
-  detailsContainer:{
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-end',
-    paddingBottom: 11
+  detailsContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    justifyContent: "flex-end",
+    paddingBottom: 11,
   },
-  title:{
+  title: {
     fontSize: 15,
     color: Colors.PRIMARY_DARK,
-    fontFamily: 'jakarta-bold',
-    textTransform: 'capitalize'
+    fontFamily: "jakarta-bold",
+    textTransform: "capitalize",
   },
-  wateringButton:{
-    width:48,
-    height:48,
+  wateringButton: {
+    width: 48,
+    height: 48,
     borderRadius: 24,
     marginRight: 11,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor:"white"
-  }
+    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+  },
 });
 
 export default PlantWateringCard;

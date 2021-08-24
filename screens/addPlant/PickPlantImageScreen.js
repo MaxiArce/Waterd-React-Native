@@ -6,17 +6,17 @@ import Colors from "../../constants/colors";
 import CustomButton from "../../components/CustomButton";
 
 const PickPlantImageScreen = ({ navigation }) => {
-  //saves image uri
+  
+  //keep both images 
   const [leafImage, setLeafImage] = useState();
   const [flowerImage, setFlowerImage] = useState();
 
   //navigates to identifyPlantScreen when both photos are selected
   useEffect(() => {
-    if(leafImage && flowerImage){
-      navigation.push('IdentifyPlant', {leafImage, flowerImage})
+    if (leafImage && flowerImage) {
+      navigation.push("IdentifyPlant", { leafImage, flowerImage });
     }
-  },[leafImage,flowerImage])
-
+  }, [leafImage, flowerImage]);
 
   //Clears states when screen is not focused
   const isFocused = useIsFocused();
@@ -25,8 +25,6 @@ const PickPlantImageScreen = ({ navigation }) => {
     setLeafImage("");
     setFlowerImage("");
   }, [isFocused]);
-
-
 
   return (
     <View style={styles.screen}>
@@ -56,7 +54,13 @@ const PickPlantImageScreen = ({ navigation }) => {
             source={require("../../assets/images/FlowerPhoto.png")}
           />
           <View style={styles.buttonContainer}>
-            <CustomButton value={"Saltar"} style={styles.button} onPress={() =>{navigation.navigate('IdentifyPlant', {leafImage: leafImage} )}}/>
+            <CustomButton
+              value={"Saltar"}
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("IdentifyPlant", { leafImage: leafImage });
+              }}
+            />
             <PicturePicker
               style={styles.photoPicker}
               onImageSelected={setFlowerImage}
@@ -76,6 +80,7 @@ const styles = StyleSheet.create({
   },
   title: {
     marginTop: 11,
+    paddingHorizontal: 16,
     color: Colors.PRIMARY_DARK,
     fontFamily: "jakarta-bold",
     textAlign: "center",

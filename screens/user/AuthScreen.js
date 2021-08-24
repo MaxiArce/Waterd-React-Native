@@ -4,13 +4,14 @@ import {
   StyleSheet,
   View,
   Text,
-  Button,
+  Image,
   KeyboardAvoidingView,
   Alert,
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
   StatusBar,
+  ActivityIndicator,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import ValidateInput from "../../components/ValidateInput";
@@ -18,6 +19,7 @@ import Colors from "../../constants/colors";
 import { login, signup } from "../../store/actions/auth.actions";
 import CustomButton from "../../components/CustomButton";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
+import Toast from "react-native-toast-message";
 
 const FORM_INPUT_UPDATE = "FORM_INPUT_UPDATE";
 
@@ -51,12 +53,22 @@ const formReducer = (state, action) => {
 const AuthScreen = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
-  //saves current selected tab
+
+  //saves current selected tab of selector( log or register)
   const [selectedTab, setSelectedTab] = useState(0);
 
+  //shows or hide button when is trying to log or register
+  const [showIsLoading, setShowIsLoading] = useState(false);
+
+  //shows toast if log was not successful
   useEffect(() => {
     if (error) {
-      Alert.alert("Ha ocurrido un error", error, [{ text: "Ok" }]);
+      Toast.show({
+        topOffset: 60,
+        type: "error",
+        text1: "Ha ocurrido un error.",
+        text2: "😭",
+      });
     }
   }, [error]);
 
@@ -88,20 +100,28 @@ const AuthScreen = () => {
 
   const onLoginHandler = async () => {
     try {
+      setShowIsLoading(true);
       await dispatch(
         login(formState.inputValues.email, formState.inputValues.password)
       );
     } catch (err) {
+      setShowIsLoading(false);
       setError(err.message);
     }
   };
 
   const onSignupHandler = async () => {
     try {
+      setShowIsLoading(true);
       await dispatch(
-        signup(formState.inputValues.displayName,formState.inputValues.email, formState.inputValues.password)
+        signup(
+          formState.inputValues.displayName,
+          formState.inputValues.email,
+          formState.inputValues.password
+        )
       );
     } catch (err) {
+      setShowIsLoading(false);
       setError(err.message);
     }
   };
@@ -112,7 +132,13 @@ const AuthScreen = () => {
         <ScrollView>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={styles.container}>
-              <Text style={styles.appTitle}>Mis Plantas</Text>
+              <View style={styles.headerContainer}>
+                <Image
+                  source={require("../../assets/images/Logo.png")}
+                  style={styles.headerImage}
+                ></Image>
+                <Text style={styles.headerTitle}>waterd</Text>
+              </View>
               <SegmentedControl
                 values={["Iniciar Sesión ", "Registrarse"]}
                 style={styles.segmentedControl}
@@ -154,53 +180,69 @@ const AuthScreen = () => {
                   </View>
                   <View style={styles.footer}>
                     <View style={styles.button}>
-                      <CustomButton
-                        value="Iniciar sesión"
-                        onPress={onLoginHandler}
-                      />
+                      {showIsLoading ? (
+                        <ActivityIndicator
+                          size="large"
+                          color={Colors.PRIMARY_DARK}
+                          style={{ padding: 22 }}
+                        />
+                      ) : (
+                        <CustomButton
+                          value="Iniciar sesión"
+                          onPress={onLoginHandler}
+                        />
+                      )}
                     </View>
                   </View>
                 </View>
               ) : (
                 <View>
-                    <ValidateInput
-                      id="displayName"
-                      placeHolder="Nombre"
-                      keyboardType="default"
-                      minLength={4}
-                      errorText="Por favor ingrese un nombre válido"
-                      initialValue=""
-                      onInputChange={onInputChangeHandler}
-                    />
-                    <ValidateInput
-                      id="email"
-                      placeHolder="Email"
-                      keyboardType="email-address"
-                      required
-                      email
-                      autoCapitalize="none"
-                      errorText="Por favor ingrese un email válido"
-                      onInputChange={onInputChangeHandler}
-                      initialValue=""
-                    />
-                    <ValidateInput
-                      id="password"
-                      placeHolder="Clave"
-                      keyboardType="default"
-                      secureTextEntry
-                      required
-                      minLength={6}
-                      autoCapitalize="none"
-                      errorText="Por favor ingrese una clave de al menos 6 caracteres"
-                      onInputChange={onInputChangeHandler}
-                      initialValue=""
-                    />
+                  <ValidateInput
+                    id="displayName"
+                    placeHolder="Nombre"
+                    keyboardType="default"
+                    minLength={4}
+                    errorText="Por favor ingrese un nombre válido"
+                    initialValue=""
+                    onInputChange={onInputChangeHandler}
+                  />
+                  <ValidateInput
+                    id="email"
+                    placeHolder="Email"
+                    keyboardType="email-address"
+                    required
+                    email
+                    autoCapitalize="none"
+                    errorText="Por favor ingrese un email válido"
+                    onInputChange={onInputChangeHandler}
+                    initialValue=""
+                  />
+                  <ValidateInput
+                    id="password"
+                    placeHolder="Clave"
+                    keyboardType="default"
+                    secureTextEntry
+                    required
+                    minLength={6}
+                    autoCapitalize="none"
+                    errorText="Por favor ingrese una clave de al menos 6 caracteres"
+                    onInputChange={onInputChangeHandler}
+                    initialValue=""
+                  />
                   <View style={styles.footer}>
                     <View style={styles.button}>
-                      <CustomButton
-                        value="Registrarse"
-                        onPress={onSignupHandler}
-                      />
+                      {showIsLoading ? (
+                        <ActivityIndicator
+                          size="large"
+                          color={Colors.PRIMARY_DARK}
+                          style={{ padding: 22 }}
+                        />
+                      ) : (
+                        <CustomButton
+                          value="Registrarse"
+                          onPress={onSignupHandler}
+                        />
+                      )}
                     </View>
                   </View>
                 </View>
@@ -228,13 +270,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 22,
   },
-  segmentFontStyle: {
-    // fontFamily: 'jakarta',
+  headerContainer: {
+    width: "100%",
+    height: 150,
+    alignItems: "center",
   },
-  appTitle: {
-    paddingHorizontal: 16,
-    fontSize: 34,
+  headerImage: {
+    height: 80,
+    resizeMode: "contain",
+  },
+  headerTitle: {
+    width: "100%",
+    textAlign: "center",
+    fontSize: 32,
     fontFamily: "canela-bold",
+  },
+  footer: {
+    marginTop: 22,
   },
 });
 

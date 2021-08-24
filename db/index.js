@@ -4,7 +4,7 @@ import { URL_API } from "../constants/database";
 
 const db = SQLite.openDatabase("plants.db");
 
-//init dql if it doesnt exist
+//init sql if it doesnt exist
 export const init = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -38,10 +38,15 @@ export const updateSQL = async (user) => {
     const response = await fetch(`${URL_API}Users/${user}/Plants.json`);
     const result = await response.json();
     if (response.ok) {
+      if (result === null) {
+        //clears local db when firebase db is empty
+        clearDB();
+      }
       if (result) {
+        //clears local db and loads the content from firebase db
         clearDB();
         Object.keys(result).forEach((key) => {
-          insertNewPlant({refId: key, ...result[key]});
+          insertNewPlant({ refId: key, ...result[key] });
         });
       }
     } else {
@@ -53,12 +58,19 @@ export const updateSQL = async (user) => {
 };
 
 //insert new plant to sql db
-export const insertNewPlant = ({refId, name, iconId, isExteriorPlant, wateringDays, wateringTimeStamp}) => {
+export const insertNewPlant = ({
+  refId,
+  name,
+  iconId,
+  isExteriorPlant,
+  wateringDays,
+  wateringTimeStamp,
+}) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
         `INSERT INTO plants (refId, name, iconId, isExteriorPlant, wateringDays, wateringTimeStamp) VALUES (?, ?, ?, ?, ?, ?)`,
-        [refId, name, iconId, isExteriorPlant,wateringDays, wateringTimeStamp],
+        [refId, name, iconId, isExteriorPlant, wateringDays, wateringTimeStamp],
         (_, result) => resolve(result),
         (_, err) => reject(err)
       );
@@ -68,7 +80,7 @@ export const insertNewPlant = ({refId, name, iconId, isExteriorPlant, wateringDa
   return promise;
 };
 
-//delete plant from sql db 
+//delete plant from sql db
 export const deleteRowPlant = (refId) => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
@@ -84,13 +96,14 @@ export const deleteRowPlant = (refId) => {
   return promise;
 };
 
-//updates watering time stamp from sql db 
-export const updateWateringTimeStamp = (currentDate,refId) => {
+//updates watering time stamp from sql db
+export const updateWateringTimeStamp = (currentDate, refId) => {
+  const wateringTimeStamp = currentDate;
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        `UPDATE plants SET wateringTimeStamp=? WHERE refId=?`,
-        [currentDate,refId],
+        `UPDATE plants SET wateringTimeStamp= ? WHERE refId= ?`,
+        [wateringTimeStamp, refId],
         (_, result) => resolve(result),
         (_, err) => reject(err)
       );
@@ -100,14 +113,12 @@ export const updateWateringTimeStamp = (currentDate,refId) => {
   return promise;
 };
 
-
-
 //fetch plants from sql db
 export const fetchPlants = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "SELECT * FROM plants;",
+        `SELECT * FROM plants`,
         [],
         (_, result) => resolve(result),
         (_, err) => reject(err)
@@ -122,13 +133,12 @@ export const clearDB = () => {
   const promise = new Promise((resolve, reject) => {
     db.transaction((tx) => {
       tx.executeSql(
-        "DELETE FROM plants;",
+        `DELETE FROM plants`,
         [],
         (_, result) => resolve(result),
         (_, err) => reject(err)
       );
     });
   });
-
   return promise;
 };

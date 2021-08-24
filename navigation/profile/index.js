@@ -16,7 +16,7 @@ const ProfileNavigator = () => (
         height: 96,
       },
       headerTitleStyle: {
-        fontSize: 34,
+        fontSize: 32,
         fontFamily: "canela-bold",
         color: Colors.PRIMARY_DARK,
       },

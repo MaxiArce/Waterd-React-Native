@@ -3,7 +3,7 @@ class Plant {
       this.refId = refId.toString();
       this.name = name;
       this.iconId = iconId;
-      this.isExteriorPlant = isExteriorPlant;
+      this.isExteriorPlant = isExteriorPlant.toString();
       this.wateringDays = wateringDays;
       this.wateringTimeStamp = wateringTimeStamp;
     }

@@ -20,6 +20,7 @@ import {
                 item.dt.toString(),
                 item.temp.max.toString().split('.')[0],
                 item.temp.min.toString().split('.')[0],
+                item.weather[0].main,
                 item.weather[0].description,
                 item.weather[0].icon
               )

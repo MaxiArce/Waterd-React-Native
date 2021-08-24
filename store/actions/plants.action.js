@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { URL_API } from "../../constants/database";
 import {
   insertNewPlant,
@@ -6,12 +5,12 @@ import {
   deleteRowPlant,
   updateWateringTimeStamp,
 } from "../../db";
+import Toast from "react-native-toast-message";
 
 export const SELECT_PLANT = "SELECT_PLANT";
 export const ADD_PLANT = "ADD_PLANT";
 export const DELETE_PLANT = "DELETE_PLANT";
 export const LOAD_PLANTS = "LOAD_PLANTS";
-// export const UPDATE_PLANTS = "UPDATE_PLANTS";
 export const WATER_PLANT = "WATER_PLANT";
 
 //allows to set selected plant
@@ -35,8 +34,19 @@ export const deletePlant = (refId, user) => {
         deleteRowPlant(refId);
         //delete from store
         dispatch({ type: DELETE_PLANT, plantID: refId });
+        Toast.show({
+          topOffset: 60,
+          type: "success",
+          text1: "Completado",
+          text2: "Planta eliminada 👋",
+        });
       } else {
-        Alert.alert("Ha ocurrido un error", ""[{ text: "OK" }]);
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Ups!",
+          text2: "Ha ocurrido un error😅",
+        });
       }
     } catch (error) {
       throw error;
@@ -87,8 +97,19 @@ export const addPlant = (payload, user) => {
             type: ADD_PLANT,
             payload: { refId: result.name, ...payload },
           });
+        Toast.show({
+          topOffset: 60,
+          type: "success",
+          text1: "Listo!",
+          text2: "Planta agregada con éxito 🌵",
+        });
       } else {
-        Alert.alert("Ha ocurrido un error", ""[{ text: "OK" }]);
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Ups!",
+          text2: "Ha ocurrido un error😅",
+        });
       }
     } catch (error) {
       throw error;
@@ -101,7 +122,6 @@ export const waterPlant = (user, refId, currentDate) => {
   return async (dispatch) => {
     try {
       const payload = { wateringTimeStamp: currentDate };
-
       const response = await fetch(
         `${URL_API}/Users/${user}/Plants/${refId}.json`,
         {
@@ -117,11 +137,24 @@ export const waterPlant = (user, refId, currentDate) => {
       //update sqlite db
       updateWateringTimeStamp(currentDate, refId);
       // //update store
-      dispatch({ type: WATER_PLANT, plantID: refId, timeStamp : currentDate });
+      dispatch({ type: WATER_PLANT, plantID: refId, timeStamp: currentDate });
+
       if (response.ok) {
-        console.log("regada");
+        Toast.show({
+          topOffset: 60,
+          type: "success",
+          text1: "Listo!",
+          text2: "Planta regada 💦🌵",
+          onLeadingIconPress: Toast.hide(),
+          onTrailingIconPress: Toast.hide(),
+        });
       } else {
-        Alert.alert("Ha ocurrido un error", ""[{ text: "OK" }]);
+        Toast.show({
+          topOffset: 60,
+          type: "error",
+          text1: "Ups!",
+          text2: "Ha ocurrido un error😅",
+        });
       }
     } catch (error) {
       throw error;

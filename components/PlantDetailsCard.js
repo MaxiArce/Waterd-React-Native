@@ -12,7 +12,12 @@ const PlantDetailsCard = ({ item ,navigation}) => {
     return obj.id === item.iconId;
   });
 
+  //check if plants is a interior or exterior plant
+  let isExteriorPlant = false
+  if(item.isExteriorPlant === "1.0" || item.isExteriorPlant === "1")
+  {isExteriorPlant= true}
 
+  
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
@@ -26,7 +31,7 @@ const PlantDetailsCard = ({ item ,navigation}) => {
 
       <View style={styles.isExteriorPlantContainer}>
         <Ionicons name="location-outline" style={styles.isExteriorPlantIcon} size={24} color={Colors.PRIMARY_DARK} />
-        <Text style={styles.isExteriorPlantText}>{(item.isExteriorPlant) === "1" ? "Exterior": "Interior"}</Text>
+        <Text style={styles.isExteriorPlantText}>{isExteriorPlant ? "Exterior": "Interior"}</Text>
       </View>
       <TouchableOpacity style={styles.wateringStatusContainer} onPress={()=>(navigation.navigate("Watering"))}>
         <WateringProgressBar 
