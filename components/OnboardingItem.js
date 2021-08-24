@@ -12,7 +12,6 @@ import CustomButton from '../components/CustomButton'
 const OnboardingItem = ({ item,navigation, index, scrollList }) => {
 
   const { width } = useWindowDimensions();
-  console.log(width)
 
   const handleScroll = () => {
     if(index === 1){
