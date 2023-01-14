@@ -39,32 +39,32 @@ const AddPlantScreen = ({ navigation, route }) => {
       dispatch(addPlant(payload, user));
       navigation.navigate("MyPlants");
     } else {
-      Alert.alert("Completa todos los valores!");
+      Alert.alert("Complete all fields!");
     }
   };
 
   return (
     <View style={styles.screen}>
       <ScrollView style={styles.container}>
-        <Text style={styles.sectionTitle}>Nombre de tu planta</Text>
+        <Text style={styles.sectionTitle}>Plant name</Text>
         <Input
           style={styles.input}
-          placeholder={"Nombre"}
+          placeholder={"Name"}
           value={inputNameText}
           onChangeText={(value) => {
             setInputNameText(value);
           }}
         />
-        <Text style={styles.sectionTitle}>Selecciona un icono</Text>
+        <Text style={styles.sectionTitle}>Select an icon</Text>
         <IconPicker onSelectedIcon={setSelectedIcon} />
-        <Text style={styles.sectionTitle}>Planta de interior o exterior?</Text>
+        <Text style={styles.sectionTitle}>Indoor or outdoor plant?</Text>
         <TypeOfPlantPicker onSelected={setIsExteriorPlant} />
         <Text style={styles.sectionTitle}>
-          Cada cuanto debes regar tu planta?
+        How often should you water your plant?
         </Text>
         <WateringDaysPicker onSelected={setWateringDays} />
         <CustomButton
-          value={"Guardar"}
+          value={"Save"}
           onPress={() => {
             handleAddItem();
           }}

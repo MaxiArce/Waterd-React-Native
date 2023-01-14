@@ -27,7 +27,7 @@ const HomeScreen = ({ navigation }) => {
   //set the title with the username
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: `Hola ${displayName}`,
+      title: `Hi ${displayName}!`,
     });
   }, []);
 
@@ -40,8 +40,8 @@ const HomeScreen = ({ navigation }) => {
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
-          "Permisos insuficientes",
-          "Necesita dar permisos de localización para obtener el clima",
+          "Insufficient permits",
+          "Need to give location permissions to get weather",
           [{ text: "Ok" }]
         );
       } else {
@@ -71,7 +71,7 @@ const HomeScreen = ({ navigation }) => {
       setCurrentLocation(locationData);
     } catch (err) {
       Alert.alert(
-        "No se pudo obtener la localización para actualizar el clima",
+        "Unable to obtain location to update weather."
         [{ text: "Ok" }]
       );
     }
@@ -99,16 +99,16 @@ const HomeScreen = ({ navigation }) => {
   }, [plants]);
 
   return (
-      <ScrollView style={styles.screen}>
-        <View style={styles.container}>
-        <Text style={styles.sectionTitle}>Estado del tiempo</Text>
+    <ScrollView style={styles.screen}>
+      <View style={styles.container}>
+        <Text style={styles.sectionTitle}>Weather conditions</Text>
         <WeatherWidget navigation={navigation} />
         <Text style={{ ...styles.sectionTitle, marginTop: 33 }}>
-          Estado de tus plantas
+          Condition of your plants
         </Text>
         <PlantsStatusWidget needAttentionList={needAttentionList} />
-        </View>
-      </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   container: {
-    paddingHorizontal:16,
+    paddingHorizontal: 16,
     paddingBottom: 49
   },
   sectionTitle: {

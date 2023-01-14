@@ -6,7 +6,7 @@ import Colors from "../../constants/colors";
 import CustomButton from "../../components/CustomButton";
 
 const PickPlantImageScreen = ({ navigation }) => {
-  
+
   //keep both images 
   const [leafImage, setLeafImage] = useState();
   const [flowerImage, setFlowerImage] = useState();
@@ -31,8 +31,7 @@ const PickPlantImageScreen = ({ navigation }) => {
       {!leafImage ? (
         <>
           <Text style={styles.title}>
-            Comencemos con una foto de las hojas de tu planta!
-          </Text>
+            Let's start with a photo of your plant's leaves!          </Text>
           <Image
             style={styles.image}
             source={require("../../assets/images/LeafPhoto.png")}
@@ -47,7 +46,7 @@ const PickPlantImageScreen = ({ navigation }) => {
       ) : (
         <>
           <Text style={styles.title}>
-            Si tu planta tiene flores necesitaremos una foto
+            If your plant has flowers we will need a photo
           </Text>
           <Image
             style={styles.image}
@@ -55,7 +54,7 @@ const PickPlantImageScreen = ({ navigation }) => {
           />
           <View style={styles.buttonContainer}>
             <CustomButton
-              value={"Saltar"}
+              value={"Skip"}
               style={styles.button}
               onPress={() => {
                 navigation.navigate("IdentifyPlant", { leafImage: leafImage });

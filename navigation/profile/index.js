@@ -28,7 +28,7 @@ const ProfileNavigator = () => (
       name="Profile"
       component={ProfileScreen}
       options={({ navigation }) => ({
-        title: "Perfil",
+        title: "Profile",
         headerTitleAlign: "left",
       })}
     />

@@ -9,7 +9,7 @@ import {
 import Colors from '../constants/colors'
 import CustomButton from '../components/CustomButton'
 
-const OnboardingItem = ({ item,navigation, index, scrollList }) => {
+const OnboardingItem = ({item, navigation, index, scrollList }) => {
 
   const { width } = useWindowDimensions();
 
@@ -29,7 +29,7 @@ const OnboardingItem = ({ item,navigation, index, scrollList }) => {
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
         <View style={styles.buttonContainer}>
-          <CustomButton style={styles.button} value={index === 0? "Siguiente >":"Comenzar >"} onPress={handleScroll}/>
+          <CustomButton style={styles.button} value={index === 0? "Next >":"Start >"} onPress={handleScroll}/>
         </View>
       </View>
     </View>

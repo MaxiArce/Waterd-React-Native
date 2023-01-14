@@ -25,7 +25,7 @@ const WateringProgressBar = ({
     <View style={styles.container}>
       {showDetails && (
         <Text style={styles.wateringStatusText}>
-          Tu planta debe regarse cada {wateringDays} días
+          Your plant must be watered every {wateringDays} days
         </Text>
       )}
 
@@ -49,7 +49,7 @@ const WateringProgressBar = ({
 
       {showDetails && (
         <Text style={styles.wateringStatusText}>
-          Siguiente riego en {dif.toFixed(0)} días
+          Next watering in {dif.toFixed(0)} days
         </Text>
       )}
     </View>

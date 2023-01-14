@@ -8,7 +8,7 @@ import CustomButton from "./CustomButton";
 
 const PicturePicker = ({ onImageSelected }) => {
   //ActionSheet
-  const actionSheetOptions = ["Tomar Foto", "Escoger Foto", "Cancelar"];
+  const actionSheetOptions = ["Take Photo", "Choose Photo", "Cancel"];
   const actionSheet = useRef();
   const showActionSheet = () => {
     actionSheet.current.show();
@@ -30,8 +30,8 @@ const PicturePicker = ({ onImageSelected }) => {
 
     if (status !== "granted") {
       Alert.alert(
-        "Permisos insuficientes",
-        "Necesitas dar permisos de uso de la cámara para usar esta función",
+        "Insufficient permits",
+        "You need to give permissions to use the camera to use this function.",
         [{ text: "Ok" }]
       );
     }
@@ -53,8 +53,8 @@ const PicturePicker = ({ onImageSelected }) => {
     }
     if (status !== "granted") {
       Alert.alert(
-        "Permisos insuficientes",
-        "Necesitas dar permisos de uso de la galería para usar esta función",
+        "Insufficient permits",
+        "You need to give gallery permissions to use this feature."
         [{ text: "Ok" }]
       );
     }
@@ -78,7 +78,7 @@ const PicturePicker = ({ onImageSelected }) => {
       />
       <CustomButton
         style={styles.customButton}
-        value={"Tomar foto"}
+        value={"Take photo"}
         onPress={showActionSheet}
       ></CustomButton>
     </View>

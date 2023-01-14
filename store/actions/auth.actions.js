@@ -7,8 +7,8 @@ export const SET_INIT = "SET_INIT";
 export const LOG_OUT = "LOG_OUT";
 
 const errorMessages = {
-  INVALID_EMAIL: "Email inválido",
-  EMAIL_EXISTS: "Email ya se encuentra registrado",
+  INVALID_EMAIL: "Invalid Email",
+  EMAIL_EXISTS: "Email is already registered",
 };
 
 export const signup = (displayName, email, password) => {
@@ -32,7 +32,7 @@ export const signup = (displayName, email, password) => {
       const errorMessage =
         errorCode in errorMessages
           ? errorMessages[errorCode]
-          : "No se ha podido registrar";
+          : "Unable to register";
 
       throw new Error(errorMessage);
     }
@@ -66,7 +66,7 @@ export const login = (email, password) => {
       }),
     });
 
-    if (!response.ok) throw new Error("No se pudo acceder");
+    if (!response.ok) throw new Error("Unable to access");
 
     const resData = await response.json();
     //save id to asyncstorage

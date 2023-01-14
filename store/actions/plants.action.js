@@ -37,15 +37,15 @@ export const deletePlant = (refId, user) => {
         Toast.show({
           topOffset: 60,
           type: "success",
-          text1: "Completado",
-          text2: "Planta eliminada 👋",
+          text1: "Completed",
+          text2: "Plant removed  👋",
         });
       } else {
         Toast.show({
           topOffset: 60,
           type: "error",
           text1: "Ups!",
-          text2: "Ha ocurrido un error😅",
+          text2: "An error has occurred😅",
         });
       }
     } catch (error) {
@@ -100,15 +100,15 @@ export const addPlant = (payload, user) => {
         Toast.show({
           topOffset: 60,
           type: "success",
-          text1: "Listo!",
-          text2: "Planta agregada con éxito 🌵",
+          text1: "Done!",
+          text2: "Plant successfully added 🌵",
         });
       } else {
         Toast.show({
           topOffset: 60,
           type: "error",
           text1: "Ups!",
-          text2: "Ha ocurrido un error😅",
+          text2: "An error has occurred😅",
         });
       }
     } catch (error) {
@@ -143,8 +143,8 @@ export const waterPlant = (user, refId, currentDate) => {
         Toast.show({
           topOffset: 60,
           type: "success",
-          text1: "Listo!",
-          text2: "Planta regada 💦🌵",
+          text1: "Done!",
+          text2: "Watered plant💦🌵",
           onLeadingIconPress: Toast.hide(),
           onTrailingIconPress: Toast.hide(),
         });
@@ -153,7 +153,7 @@ export const waterPlant = (user, refId, currentDate) => {
           topOffset: 60,
           type: "error",
           text1: "Ups!",
-          text2: "Ha ocurrido un error😅",
+          text2: "An error has occurred😅",
         });
       }
     } catch (error) {

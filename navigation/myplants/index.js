@@ -28,7 +28,7 @@ const MyPlantsNavigator = () => (
       name="MyPlantsList"
       component={MyPlantsListScreen}
       options={({ navigation }) => ({
-        title: "Mis Plantas",
+        title: "My Plants",
         headerTitleAlign: "left",
       })}
     />

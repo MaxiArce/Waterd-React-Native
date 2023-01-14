@@ -39,20 +39,20 @@ const ValidateInput = (props) => {
   }, [inputState, onInputChange, id]);
 
   const textChangeHandler = (text) => {
-    // Patron para validar si el texto tiene la forma de un email
+    // Check if its an email
     const emailRegex =
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     let isValid = true;
-    // Validación de requerido - falla cuando el texto está vacío
+    // Validation of required - fails when text is empty
     if (props.required && text.trim().length === 0) isValid = false;
     // Validación de email - falla cuando el texto no tiene match con la expresión regular
     if (props.email && !emailRegex.test(text.toLowerCase())) isValid = false;
-    // Validación de rango mínimo - falla cuando el valor numérico es menor al mínimo
+    // Email validation - fails when text does not match regular expression
     if (props.min != null && +text < props.min) isValid = false;
-    // Validación de rango máximo - falla cuando el valor numérico es mayor al mázimo
+    // Maximum range validation - fails when numeric value is greater than maximum
     if (props.max != null && +text > props.max) isValid = false;
-    // Validación de tamaño - falla cuando el texto no tiene el tamaño exigido
+    // Size validation - fails when text does not have the required size
     if (props.minLength != null && text.length < props.minLength)
       isValid = false;
 

@@ -28,7 +28,7 @@ const WateringNavigator = () => (
       name="Watering"
       component={WateringScreen}
       options={({ navigation }) => ({
-        title: "Regado",
+        title: "Watering",
         headerTitleAlign: "left",
       })}
     />

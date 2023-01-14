@@ -25,10 +25,10 @@ const WeatherWidget = ({ navigation }) => {
       currentWeather.main === "Rain"
     ) {
       weatherComment =
-        "Debido al clima actrual puede que algunas de tus plantas de exterior ya estén regadas.";
+        "Due to the actrual weather some of your outdoor plants may already be watered.";
     } else {
       weatherComment =
-        "Puede que alguna de tus plantas necesiten más riego de lo normal.";
+      "Some of your plants may need more watering than normal.";
     }
   }
 

@@ -34,7 +34,7 @@ const AddPlantNavigator = () => (
       name="PickPlantImage"
       component={PickPlantImageScreen}
       options={({ navigation }) => ({
-        title: "Agregar planta",
+        title: "Add plant",
         headerRight: () => (
           <TouchableOpacity
             onPress={() => {
@@ -63,7 +63,7 @@ const AddPlantNavigator = () => (
       name="AddPlant"
       component={AddPlantScreen}
       options={({ navigation }) => ({
-        title: "Agregar planta",
+        title: "Add plant",
         headerLeft: null,
         headerRight: () => (
           <TouchableOpacity

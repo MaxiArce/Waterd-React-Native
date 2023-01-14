@@ -40,7 +40,7 @@ const ProfileScreen = ({ navigation }) => {
         ></Image>
         <Text style={styles.userName}>{displayName}</Text>
       </View>
-      <Text style={styles.message}>Actualmente tienes {plants.length} plantas.</Text>
+      <Text style={styles.message}>You currently have {plants.length} plants.</Text>
     </View>
   );
 };

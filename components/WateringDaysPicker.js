@@ -12,7 +12,7 @@ const WateringDaysPicker = ({onSelected}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.daysText}>{wateringDays} Días</Text>
+      <Text style={styles.daysText}>{wateringDays} Days</Text>
       <View style={styles.sliderContainer}>
       <Ionicons name="ios-water-outline" size={24} color={Colors.PRIMARY_LIGHT} />
 

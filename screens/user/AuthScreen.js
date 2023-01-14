@@ -66,7 +66,7 @@ const AuthScreen = () => {
       Toast.show({
         topOffset: 60,
         type: "error",
-        text1: "Ha ocurrido un error.",
+        text1: "An error has occurred.",
         text2: "😭",
       });
     }
@@ -140,7 +140,7 @@ const AuthScreen = () => {
                 <Text style={styles.headerTitle}>waterd</Text>
               </View>
               <SegmentedControl
-                values={["Iniciar Sesión ", "Registrarse"]}
+                values={["Login", "Register"]}
                 style={styles.segmentedControl}
                 tintColor={Colors.SECONDARY_LIGHT}
                 backgroundColor={Colors.PRIMARY_DARK}
@@ -161,19 +161,19 @@ const AuthScreen = () => {
                       required
                       email
                       autoCapitalize="none"
-                      errorText="Por favor ingrese un email válido"
+                      errorText="Please enter a valid email address"
                       onInputChange={onInputChangeHandler}
                       initialValue=""
                     />
                     <ValidateInput
                       id="password"
-                      placeHolder="Clave"
+                      placeHolder="Password"
                       keyboardType="default"
                       secureTextEntry
                       required
                       minLength={6}
                       autoCapitalize="none"
-                      errorText="Por favor ingrese una clave de al menos 6 caracteres"
+                      errorText="Please enter a password of at least 6 characters."
                       onInputChange={onInputChangeHandler}
                       initialValue=""
                     />
@@ -188,7 +188,7 @@ const AuthScreen = () => {
                         />
                       ) : (
                         <CustomButton
-                          value="Iniciar sesión"
+                          value="Login"
                           onPress={onLoginHandler}
                         />
                       )}
@@ -199,10 +199,10 @@ const AuthScreen = () => {
                 <View>
                   <ValidateInput
                     id="displayName"
-                    placeHolder="Nombre"
+                    placeHolder="Name"
                     keyboardType="default"
                     minLength={4}
-                    errorText="Por favor ingrese un nombre válido"
+                    errorText="Please enter a valid name"
                     initialValue=""
                     onInputChange={onInputChangeHandler}
                   />
@@ -213,19 +213,19 @@ const AuthScreen = () => {
                     required
                     email
                     autoCapitalize="none"
-                    errorText="Por favor ingrese un email válido"
+                    errorText="Please enter a valid email address"
                     onInputChange={onInputChangeHandler}
                     initialValue=""
                   />
                   <ValidateInput
                     id="password"
-                    placeHolder="Clave"
+                    placeHolder="Password"
                     keyboardType="default"
                     secureTextEntry
                     required
                     minLength={6}
                     autoCapitalize="none"
-                    errorText="Por favor ingrese una clave de al menos 6 caracteres"
+                    errorText="Please enter a password of at least 6 characters"
                     onInputChange={onInputChangeHandler}
                     initialValue=""
                   />
@@ -239,7 +239,7 @@ const AuthScreen = () => {
                         />
                       ) : (
                         <CustomButton
-                          value="Registrarse"
+                          value="Register"
                           onPress={onSignupHandler}
                         />
                       )}

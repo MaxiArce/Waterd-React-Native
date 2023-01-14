@@ -18,7 +18,7 @@ const WeatherDetailsRow = ({ item }) => {
 
   //translate date into day 
   const date = new Date(item.id * 1000);
-  const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const days = ['Sunday', 'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const day = days[date.getDay()]
 
   return (

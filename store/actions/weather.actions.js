@@ -5,7 +5,7 @@ export const getForecast = (data) => {
   return async (dispatch) => {
     //gets info from api
     const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${data.lat}&lon=${data.lng}&exclude=minutely,hourly&units=metric&lang=es&appid=d10f124250640b979b8fe4a339c3e13c`
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${data.lat}&lon=${data.lng}&exclude=minutely,hourly&units=metric&lang=en&appid=d10f124250640b979b8fe4a339c3e13c`
     );
     //parse response as json
     const resData = await response.json();

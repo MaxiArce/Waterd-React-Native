@@ -4,6 +4,8 @@ import {
   View,
   Text,
   ActivityIndicator,
+  Dimensions,
+  Platform
 } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { updateSQL } from "../../db";
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: 49,
+    height: (Platform.OS === 'ios') ? (Dimensions.get('window').height) / 10 : Dimensions.get('window').height / 12
   },
   item: {
     flex: 1,

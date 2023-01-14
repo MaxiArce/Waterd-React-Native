@@ -6,39 +6,39 @@ import CustomButton from "../../components/CustomButton";
 import mime from "mime";
 
 const IdentifyingPlant = ({ navigation, route }) => {
-	
-	//images
+
+  //images
   const leafImage = route.params.leafImage;
   const flowerImage = route.params.leafImage;
 
-	//states to show the status of fetch
-  const [statusText, setStatusText] = useState("Identificando tu planta...");
+  //states to show the status of fetch
+  const [statusText, setStatusText] = useState("Identifying your plant...");
   const [statusIcon, setStatusIcon] = useState("isFetching");
 
-	//response from api
+  //response from api
   const [identifiedPlant, setIdentifiedPlant] = useState();
 
   useEffect(() => {
     fetchPlantName();
   }, []);
 
-	//set status
+  //set status
   useEffect(() => {
     if (identifiedPlant) {
       if (identifiedPlant.score > 0.8) {
         setStatusText(
-          `Estamos seguros que tu planta es una ${identifiedPlant.species.commonNames[0]}`
+          `We are almost sure that your plant is a ${identifiedPlant.species.commonNames[0]}`
         );
       } else {
         setStatusText(
-          `Quizas tu planta es una ${identifiedPlant.species.commonNames[0]}`
+          `Your plant could be a ${identifiedPlant.species.commonNames[0]}`
         );
       }
     }
   }, [identifiedPlant]);
 
 
-	//fetch info from api
+  //fetch info from api
   const fetchPlantName = async () => {
     const endPoint =
       "https://my-api.plantnet.org/v2/identify/all?api-key=2b10s6uZBUuIK6rG0L2QHscQe";
@@ -78,7 +78,7 @@ const IdentifyingPlant = ({ navigation, route }) => {
         setStatusIcon("success");
       } else {
         setStatusText(
-          "No Pudimos encontrar tu planta , intenta nuevamente con otras fotos"
+          "We couldn't find your plant , try again with other photos."
         );
         setStatusIcon("fail");
       }
@@ -100,24 +100,24 @@ const IdentifyingPlant = ({ navigation, route }) => {
         {statusIcon === "isFetching" && (
           <>
             <ActivityIndicator size="large" color={"white"} />
-            <CustomButton value={"Cancelar"} style={styles.buttonCancel} onPress={()=>{navigation.navigate("PickPlantImage")}} />
+            <CustomButton value={"Cancel"} style={styles.buttonCancel} onPress={() => { navigation.navigate("PickPlantImage") }} />
           </>
         )}
         {statusIcon === "success" && (
           <>
             <AntDesign
-							style={styles.icon}
+              style={styles.icon}
               name="checkcircleo"
               size={48}
               color={Colors.PRIMARY_LIGHT}
             />
-              <CustomButton value={"Continuar"} style={styles.button} onPress={() => {navigation.push('AddPlant',identifiedPlant )}}/>
+            <CustomButton value={"Continue"} style={styles.button} onPress={() => { navigation.push('AddPlant', identifiedPlant) }} />
           </>
         )}
         {statusIcon === "fail" && (
           <>
             <AntDesign name="exclamationcircleo" size={48} color={Colors.WARNING} />
-            <CustomButton value={"Reintentar"} style={styles.button} onPress={()=>{navigation.navigate("PickPlantImage")}}/>
+            <CustomButton value={"Retry"} style={styles.button} onPress={() => { navigation.navigate("PickPlantImage") }} />
           </>
         )}
       </View>
@@ -128,7 +128,7 @@ const IdentifyingPlant = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   screen: {
     alignContent: "center",
-		justifyContent: 'space-between',
+    justifyContent: 'space-between',
     width: "100%",
     height: "100%",
     backgroundColor: Colors.PRIMARY_DARK,
@@ -153,17 +153,17 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-	icon: {
-		marginBottom:22
-	},
+  icon: {
+    marginBottom: 22
+  },
   button: {
-		backgroundColor: 'white',
+    backgroundColor: 'white',
     color: Colors.PRIMARY_DARK,
   },
-	buttonCancel :{
-		backgroundColor: Colors.WARNING,
+  buttonCancel: {
+    backgroundColor: Colors.WARNING,
     color: 'white'
-	}
+  }
 });
 
 export default IdentifyingPlant;

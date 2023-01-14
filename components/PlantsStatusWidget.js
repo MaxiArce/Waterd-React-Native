@@ -11,7 +11,7 @@ import Colors from "../constants/colors";
 import { Feather, AntDesign } from "@expo/vector-icons";
 import PlantWateringCard from "../components/PlantWateringCard";
 
-const PlantsStatusWidget = ({ navigation, needAttentionList }) => { 
+const PlantsStatusWidget = ({ navigation, needAttentionList }) => {
 
   return (
     <View>
@@ -25,7 +25,7 @@ const PlantsStatusWidget = ({ navigation, needAttentionList }) => {
               style={{ paddingVertical: 11 }}
             />
             <Text style={styles.statusCommentText}>
-              Tus plantas se encuentran bien.
+              Your plants are doing well.
             </Text>
           </View>
         </View>
@@ -39,7 +39,7 @@ const PlantsStatusWidget = ({ navigation, needAttentionList }) => {
               style={{ paddingVertical: 11 }}
             />
             <Text style={styles.statusCommentText}>
-              Tus plantas necesitan atención.
+              Your plants need attention.
             </Text>
           </View>
           <Feather
@@ -49,8 +49,8 @@ const PlantsStatusWidget = ({ navigation, needAttentionList }) => {
             color={Colors.SECONDARY_DARK}
             style={{ paddingVertical: 11 }}
           />
-          {needAttentionList.map((item,index) =>{
-            return <PlantWateringCard key={index} item={item} showDetails={false}/>
+          {needAttentionList.map((item, index) => {
+            return <PlantWateringCard key={index} item={item} showDetails={false} />
           })}
         </View>
       )}
